@@ -216,7 +216,7 @@ echo "${GREEN}Creating the mountpoint for the old SD card boot partition...${NC}
 mkdir $NEWSDBOOT
 echo "${GREEN}Modifying the new fstab on the USB device...${NC}"
 sed -i '/mmcblk0p2/s/^/#/' "${TEMPMOUNT}/etc/fstab"
-sed -i 's${SDBOOT}${NEWSDBOOT}/g' "${TEMPMOUNT}/etc/fstab"
+sed -i "s${SDBOOT}${NEWSDBOOT}/g" "${TEMPMOUNT}/etc/fstab"
 echo "${USBDEVICEPARTITION}	/	ext4	defaults,noatime	0	1" >> "${TEMPMOUNT}/etc/fstab
 echo "${GREEN}Backing up the current kernel boot configuration...${NC}"
 cp $CONFIG $CONFIGBACKUP
