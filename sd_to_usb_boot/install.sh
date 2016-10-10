@@ -124,19 +124,19 @@ echo "${CYAN}Preparing the USB device${NC}"
 echo "${BLUE}------------------------${NC}"
 echo
 echo "${GREEN}Creating a partition table...${NC}"
-if ! parted --script "${USBDEVICE}" mklabel mbr; then
+if ! parted --script "${USBDEVICE}" mklabel msdos > /dev/null; then
   echo "${RED}Failed to create the partition table${NC}"
   echo "${GREEN}Do not panic; your SD card is still OK. Try wiping the USB device and running this script again.${NC}"
   exit 1
 fi
-echo "${GREEN}Creating the data partition...${NC}"
-if ! parted --script --align optimal "${USBDEVICE}" mkpart primary ext4 0% 100%; then
+echo "${GREEN}Creating the partition...${NC}"
+if ! parted --script --align optimal "${USBDEVICE}" mkpart primary ext4 0% 100% > /dev/null; then
   echo "${RED}Failed to create the partition${NC}"
   echo "${GREEN}Do not panic; your SD card is still OK. Try wiping the USB device and running this script again.${NC}"
   exit 1
 fi
-echo "${GREEN}Formatting the data partition...${NC}"
-if ! mkfs -t ext4 -L rootfs "${USBDEVICEPARTITION}"; then
+echo "${GREEN}Formatting the partition...${NC}"
+if ! mkfs -t ext4 -L rootfs "${USBDEVICEPARTITION}" > /dev/null; then
   echo "${RED}Failed to format the partition${NC}"
   echo "${GREEN}Do not panic; your SD card is still OK. Try wiping the USB device and running this script again.${NC}"
   exit 1
