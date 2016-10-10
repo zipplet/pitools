@@ -95,25 +95,37 @@ echo "${BLUE}---------------------------------------------------${NC}"
 echo "${CYAN}Making sure required packages we need are installed${NC}"
 echo "${BLUE}---------------------------------------------------${NC}"
 echo
-echo "${YELLOW}This may take a while depending on your Internet connection speed"
-echo "and Pi model - please be patient.${NC}"
-echo "${GREEN}Updating the local package cache...${NC}"
-if ! apt-get update > /dev/null; then
-  echo "${RED}apt-get update failed${NC}"
-  exit 1
-fi
+
+# First, see if both packages we want are installed.
+GOTPACKAGES=1
 if ! dpkg -s rsync > /dev/null 2>&1; then
-  echo "${GREEN}Need to install rsync, installing...${NC}"
-  if ! apt-get install -y rsync > /dev/null; then
-    echo "${RED}Failed to install rsync${NC}"
-    exit 1
-  fi
+  GOTPACKAGES=0
 fi
 if ! dpkg -s parted > /dev/null 2>&1; then
-  echo "${GREEN}Need to install parted, installing...${NC}"
-  if ! apt-get install -y parted > /dev/null; then
-    echo "${RED}Failed to install parted${NC}"
+  GOTPACKAGES=0
+fi
+
+if [ $GOTPACKAGES -eq 0 ]; then
+  echo "${YELLOW}This may take a while depending on your Internet connection speed"
+  echo "and Pi model - please be patient.${NC}"
+  echo "${GREEN}Updating the local package cache...${NC}"
+  if ! apt-get update > /dev/null; then
+    echo "${RED}apt-get update failed${NC}"
     exit 1
+  fi
+  if ! dpkg -s rsync > /dev/null 2>&1; then
+    echo "${GREEN}Need to install rsync, installing...${NC}"
+    if ! apt-get install -y rsync > /dev/null; then
+      echo "${RED}Failed to install rsync${NC}"
+      exit 1
+    fi
+  fi
+  if ! dpkg -s parted > /dev/null 2>&1; then
+    echo "${GREEN}Need to install parted, installing...${NC}"
+    if ! apt-get install -y parted > /dev/null; then
+      echo "${RED}Failed to install parted${NC}"
+      exit 1
+    fi
   fi
 fi
 echo "${GREEN}All required packages are installed.${NC}"
