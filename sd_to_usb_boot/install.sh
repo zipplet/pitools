@@ -104,8 +104,7 @@ if ! apt-get update > /dev/null; then
   exit 1
 fi
 
-PKG_OK=$(dpkg-query -W --showformat='${Status}\n' rsync|grep "install ok installed")
-if [ "" == "$PKG_OK" ]; then
+if ! dpkg-query -W -f='${Status}' rsync 2>/dev/null | grep -c "ok installed"; then
   echo "${GREEN}Need to install rsync, installing...${NC}"
   if ! apt-get install -y rsync > /dev/null; then
     echo "${RED}Failed to install rsync${NC}"
@@ -113,8 +112,7 @@ if [ "" == "$PKG_OK" ]; then
   fi
 fi
 
-PKG_OK=$(dpkg-query -W --showformat='${Status}\n' parted|grep "install ok installed")
-if [ "" == "$PKG_OK" ]; then
+if ! dpkg-query -W -f='${Status}' parted 2>/dev/null | grep -c "ok installed"; then
   echo "${GREEN}Need to install parted, installing...${NC}"
   if ! apt-get install -y parted > /dev/null; then
     echo "${RED}Failed to install parted${NC}"
