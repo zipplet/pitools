@@ -229,15 +229,15 @@ echo "${GREEN}Removing the temporary mountpount...${NC}"
 rm -rf $TEMPMOUNT
 echo
 echo
-echo ${CYAN}All finished."
+echo "${CYAN}All finished."
 echo
 echo "If your Pi does not boot properly, you can restore your old boot configuration."
 echo "To do this, put the SD card into a card reader, delete ${CONFIG} and rename ${CONFIGBACKUP} to ${CONFIG}${NC}"
 echo "No other files were modified on your SD card - all of the other changes were made to the new USB partition."
 echo
-echo ${GREEN}
+echo "${GREEN}"
 read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
-echo {$NC}
+echo "${NC}"
 if [ ! "$ANSWER" = "y" ]; then
   echo "Aborting."
   exit 1
