@@ -13,6 +13,8 @@ USBDEVICE="/dev/sda"
 USBDEVICEPARTITION="${USBDEVICE}1"
 USBDEVICE2="/dev/sdb"
 TEMPMOUNT="/mnt/tempmount"
+CONFIG="/boot/cmdline.txt"
+CONFIGBACKUP="/boot/cmdline.txt.backup"
 
 # We must run as root
 if [ "$(id -u)" != "0" ]; then
@@ -75,6 +77,21 @@ if grep -qs "$USBDEVICE" /proc/mounts; then
   exit 1
 fi
 
+if [ ! -d "files" ]; then
+  echo "${RED}Cannot find the files directory. Change to the script directory before running it${NC}"
+  exit 1
+fi
+
+if [ ! -f "files/rpi-usbroot" ]; then
+  echo "${RED}Cannot find the rpi-usbroot tool. Change to the script directory before running it${NC}"
+  exit 1
+fi
+
+if [ ! -f "files/rpi-usbbootsync" ]; then
+  echo "${RED}Cannot find the rpi-usbbootsync tool. Change to the script directory before running it${NC}"
+  exit 1
+fi
+
 echo "${GREEN}Sanity tests passed.${NC}"
 
 # Warn the user if this might be destructive (device has a partition)
@@ -104,7 +121,7 @@ if ! apt-get update > /dev/null; then
   exit 1
 fi
 
-if ! dpkg-query -W -f='${Status}' rsync 2>/dev/null | grep -c "ok installed"; then
+if ! dpkg-query -W -f='${Status}' rsync 2>/dev/null | grep -c "ok installed" > /dev/null; then
   echo "${GREEN}Need to install rsync, installing...${NC}"
   if ! apt-get install -y rsync > /dev/null; then
     echo "${RED}Failed to install rsync${NC}"
@@ -112,7 +129,7 @@ if ! dpkg-query -W -f='${Status}' rsync 2>/dev/null | grep -c "ok installed"; th
   fi
 fi
 
-if ! dpkg-query -W -f='${Status}' parted 2>/dev/null | grep -c "ok installed"; then
+if ! dpkg-query -W -f='${Status}' parted 2>/dev/null | grep -c "ok installed" > /dev/null; then
   echo "${GREEN}Need to install parted, installing...${NC}"
   if ! apt-get install -y parted > /dev/null; then
     echo "${RED}Failed to install parted${NC}"
@@ -170,3 +187,53 @@ if ! rsync -ax / $TEMPMOUNT; then
   exit 1
 fi
 echo "${GREEN}Data transfer from SD to USB successful.${NC}"
+
+echo
+echo "${BLUE}--------------------${NC}"
+echo "${CYAN}Installing the tools${NC}"
+echo "${BLUE}--------------------${NC}"
+echo
+echo "${GREEN}Installing rpi-usbroot...${NC}"
+cp files/rpi-usbroot /usr/sbin/rpi-usbroot
+sed -i '/exit 0/i rpi-usbroot' "${TEMPMOUNT}/etc/rc.local"
+echo "${GREEN}Installing rpi-usbbootsync...${NC}"
+cp files/rpi-usbbootsync /usr/sbin/rpi-usbbootsync
+echo "${GREEN}Tools installed${NC}"
+
+echo
+echo "${BLUE}--------------------------${NC}"
+echo "${CYAN}Making the system bootable${NC}"
+echo "${BLUE}--------------------------${NC}"
+echo
+echo "${GREEN}Creating the mountpoint for the old SD card boot partition...${NC}"
+mkdir $NEWSDBOOT
+echo "${GREEN}Modifying the new fstab on the USB device...${NC}"
+sed -i '/mmcblk0p2/s/^/#/' "${TEMPMOUNT}/etc/fstab"
+sed -i 's${SDBOOT}${NEWSDBOOT}/g' "${TEMPMOUNT}/etc/fstab"
+echo "${USBDEVICEPARTITION}	/	ext4	defaults,noatime	0	1" >> "${TEMPMOUNT}/etc/fstab
+echo "${GREEN}Backing up the current kernel boot configuration...${NC}"
+cp $CONFIG $CONFIGBACKUP
+echo "${GREEN}Modifying the kernel boot configuration...${NC}"
+sed -i "s|root=\/dev\/mmcblk0p2|root=${USBDEVICEPARTITION} rootdelay=5|" $CONFIG
+echo
+echo "${GREEN}Dismounting the USB device...${NC}"
+umount ${USBDEVICEPARTITION}
+echo "${GREEN}Removing the temporary mountpount...${NC}"
+rm -rf $TEMPMOUNT
+echo
+echo
+echo ${CYAN}All finished."
+echo
+echo "If your Pi does not boot properly, you can restore your old boot configuration."
+echo "To do this, put the SD card into a card reader, delete ${CONFIG} and rename ${CONFIGBACKUP} to ${CONFIG}${NC}"
+echo
+echo ${GREEN}
+read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
+echo {$NC}
+if [ ! "$ANSWER" = "y" ]; then
+  echo "Aborting."
+  exit 1
+fi
+
+# Reboot
+reboot
