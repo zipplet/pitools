@@ -217,7 +217,7 @@ mkdir "${TEMPMOUNT}${NEWSDBOOT}"
 echo "${GREEN}Modifying the new fstab on the USB device...${NC}"
 sed -i '/mmcblk0p2/s/^/#/' "${TEMPMOUNT}/etc/fstab"
 sed -i "s${SDBOOT}${NEWSDBOOT}/g" "${TEMPMOUNT}/etc/fstab"
-echo "${USBDEVICEPARTITION}	/	ext4	defaults,noatime	0	1" >> "${TEMPMOUNT}/etc/fstab
+echo "${USBDEVICEPARTITION}	/	ext4	defaults,noatime	0	1" >> "${TEMPMOUNT}/etc/fstab"
 echo "${GREEN}Backing up the current kernel boot configuration...${NC}"
 cp $CONFIG $CONFIGBACKUP
 echo "${GREEN}Modifying the kernel boot configuration...${NC}"
@@ -229,10 +229,10 @@ echo "${GREEN}Removing the temporary mountpount...${NC}"
 rm -rf $TEMPMOUNT
 echo
 echo
-echo "${CYAN}All finished."
+echo "${CYAN}All finished.${NC}"
 echo
 echo "If your Pi does not boot properly, you can restore your old boot configuration."
-echo "To do this, put the SD card into a card reader, delete ${CONFIG} and rename ${CONFIGBACKUP} to ${CONFIG}${NC}"
+echo "To do this, put the SD card into a card reader, delete ${CONFIG} and rename ${CONFIGBACKUP} to ${CONFIG}"
 echo "No other files were modified on your SD card - all of the other changes were made to the new USB partition."
 echo
 echo "${GREEN}"
