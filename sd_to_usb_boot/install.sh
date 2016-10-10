@@ -96,38 +96,32 @@ echo "${CYAN}Making sure required packages we need are installed${NC}"
 echo "${BLUE}---------------------------------------------------${NC}"
 echo
 
-# First, see if both packages we want are installed.
-GOTPACKAGES=1
-if ! dpkg -s rsync > /dev/null 2>&1; then
-  GOTPACKAGES=0
-fi
-if ! dpkg -s parted > /dev/null 2>&1; then
-  GOTPACKAGES=0
+echo "${YELLOW}This may take a while depending on your Internet connection speed"
+echo "and Pi model - please be patient.${NC}"
+echo "${GREEN}Updating the local package cache...${NC}"
+if ! apt-get update > /dev/null; then
+  echo "${RED}apt-get update failed${NC}"
+  exit 1
 fi
 
-if [ $GOTPACKAGES -eq 0 ]; then
-  echo "${YELLOW}This may take a while depending on your Internet connection speed"
-  echo "and Pi model - please be patient.${NC}"
-  echo "${GREEN}Updating the local package cache...${NC}"
-  if ! apt-get update > /dev/null; then
-    echo "${RED}apt-get update failed${NC}"
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' rsync|grep "install ok installed")
+if [ "" == "$PKG_OK" ]; then
+  echo "${GREEN}Need to install rsync, installing...${NC}"
+  if ! apt-get install -y rsync > /dev/null; then
+    echo "${RED}Failed to install rsync${NC}"
     exit 1
   fi
-  if ! dpkg -s rsync > /dev/null 2>&1; then
-    echo "${GREEN}Need to install rsync, installing...${NC}"
-    if ! apt-get install -y rsync > /dev/null; then
-      echo "${RED}Failed to install rsync${NC}"
-      exit 1
-    fi
-  fi
-  if ! dpkg -s parted > /dev/null 2>&1; then
-    echo "${GREEN}Need to install parted, installing...${NC}"
-    if ! apt-get install -y parted > /dev/null; then
-      echo "${RED}Failed to install parted${NC}"
-      exit 1
-    fi
+fi
+
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' parted|grep "install ok installed")
+if [ "" == "$PKG_OK" ]; then
+  echo "${GREEN}Need to install parted, installing...${NC}"
+  if ! apt-get install -y parted > /dev/null; then
+    echo "${RED}Failed to install parted${NC}"
+    exit 1
   fi
 fi
+
 echo "${GREEN}All required packages are installed.${NC}"
 
 echo
@@ -147,7 +141,7 @@ if ! parted --script --align optimal "${USBDEVICE}" mkpart primary ext4 0% 100% 
   echo "${GREEN}Do not panic; your SD card is still OK. Try wiping the USB device and running this script again.${NC}"
   exit 1
 fi
-echo "${GREEN}Formatting the partition...${NC}"
+echo "${GREEN}Formatting the partition (this may take a while)...${NC}"
 if ! mkfs -t ext4 -L rootfs "${USBDEVICEPARTITION}" > /dev/null; then
   echo "${RED}Failed to format the partition${NC}"
   echo "${GREEN}Do not panic; your SD card is still OK. Try wiping the USB device and running this script again.${NC}"
@@ -166,9 +160,9 @@ fi
 echo "${GREEN}USB device mounted and ready.${NC}"
 
 echo
-echo "${BLUE}-----------------------------${NC}"
-echo "${CYAN}Copying data from the SD card${NC}"
-echo "${BLUE}-----------------------------${NC}"
+echo "${BLUE}-----------------------------------${NC}"
+echo "${CYAN}Synchronizing data from the SD card${NC}"
+echo "${BLUE}-----------------------------------${NC}"
 echo
 echo "${YELLOW}This will take a long time, please be patient.${NC}"
 echo "Watch the activity LED on the USB device to confirm activity."
