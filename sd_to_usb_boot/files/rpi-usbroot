@@ -1,0 +1,53 @@
+#!/bin/sh
+# This script syncs any changes from the real /boot on the SD card to the virtual /boot on the USB media.
+
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+CYAN='\033[1;36m'
+NC='\033[0m'
+
+PROGNAME="rpi-usbroot"
+FAKEBOOT="/boot"
+REALBOOT="/bootsd"
+
+echo "${PROGNAME}: Version 0.1 (20161010)"
+echo "${PROGNAME}: Copyright (c) Michael Nixon 2016"
+
+if [ ! -d "$REALBOOT" ]; then
+  echo "${PROGNAME}: ${RED}CRITICAL${NC}: ${CYAN}${REALBOOT}${NC} does not exist."
+  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Giving up - something is badly wrong."
+  exit 1
+fi
+
+if ! grep -qs "$REALBOOT" /proc/mounts; then
+  echo "${PROGNAME}: ${RED}CRITICAL${NC}: ${CYAN}${REALBOOT}${NC} not mounted."
+  echo "${PROGNAME}: ${YELLOW}Are you trying to run this after boot?${NC}"
+  echo "${PROGNAME}: Perhaps you intended to run ${YELLOW}rpi-usbbootsync${NC} instead?"
+  echo "${PROGNAME}: Please see the documentation for more information."
+  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Giving up - something is badly wrong."
+  exit 1
+fi
+
+
+if [ ! -d "$FAKEBOOT" ]; then
+  echo "${PROGNAME}: ${YELLOW}WARNING${NC}: ${CYAN}${FAKEBOOT}${NC} not found on the USB media"
+  mkdir /boot
+  echo "${PROGNAME}: ${YELLOW}WARNING${NC}: Created ${CYAN}${FAKEBOOT}${NC} on the USB media"
+  echo "${PROGNAME}: ${YELLOW}WARNING${NC}: Initial sync may take longer than usual."
+fi
+
+echo "${PROGNAME}: ${GREEN}Syncing any boot partition changes${NC}"
+if ! rsync -ax /bootsd/ /boot; then
+  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Sync failed"
+  exit 1
+fi
+if ! umount /bootsd; then
+  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Unmount failed"
+  exit 1
+else
+  echo "${PROGNAME}: ${GREEN}Success, unmounted the SD card${NC}"
+fi
+
+exit 0
