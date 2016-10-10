@@ -159,7 +159,7 @@ echo "${CYAN}Copying data from the SD card${NC}"
 echo "${BLUE}-----------------------------${NC}"
 echo
 echo "${YELLOW}This will take a long time, please be patient.${NC}"
-echo "Watch the activity LEDs on the USB device to confirm this is progressing."
+echo "Watch the activity LED on the USB device to confirm activity."
 if ! rsync -ax / $TEMPMOUNT; then
   echo "${RED}Failed to synchronize data to the USB device${NC}"
   echo "${GREEN}Do not panic; your SD card is still OK. Try wiping the USB device and running this script again.${NC}"
