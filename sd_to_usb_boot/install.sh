@@ -30,19 +30,23 @@ echo "${CYAN}Thanks to Adafruit for the idea.${NC}"
 echo "${BLUE}-------------------------------------${NC}"
 
 echo
-
+echo "This should be safe, but please pay attention to the warnings below."
+echo "No data (other than the kernel boot command line) is modified on the SD"
+echo "card, and the kernel boot command line file is backed up. You should be"
+echo "able to recover if this fails but no guarentees!"
+echo
 echo "${GREEN}Before proceeding, please confirm the following:${NC}"
 echo "${YELLOW}1) You have a backup of your current SD card.${NC}"
 echo "${YELLOW}2) You have attached a SINGLE USB mass storage device to your Raspberry Pi.${NC}"
 echo "(other non storage devices can remain attached, like keyboards, mice, etc)"
 echo "${YELLOW}3) This USB device is not mounted anywhere.${NC}"
-echo "${YELLOW}4) You do not mind losing ALL data on the USB device.${NC}"
+echo "${YELLOW}4) You do not mind losing ALL data on the USB device as it will be formatted.${NC}"
 echo "${YELLOW}5) The USB device is at least as large as your SD card.${NC}"
-echo "${YELLOW}6) You are OK with losing all data on your SD card and USB device if this goes wrong.${NC}"
-echo "${YELLOW}7) You are running your Pi in console-only mode (no GUI) right now.${NC}"
-echo "${YELLOW}8) Your Raspberry Pi is connected to a working Internet connection.${NC}"
+echo "${YELLOW}6) You are running your Pi in console-only mode (no GUI) right now.${NC}"
+echo "${YELLOW}7) Your Raspberry Pi is connected to a working Internet connection.${NC}"
+echo "${YELLOW}8) No servers (webservers, etc) are running as it may lead to a bad transfer.${NC}"
 echo
-read -p "Have you read, confirmed and understand all of the above? (y/n) :" -r ANSWER
+read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
 if [ ! "$ANSWER" = "y" ]; then
   echo "Aborting."
@@ -108,9 +112,9 @@ if [ ! "$ANSWER" = "y" ]; then
   exit 1
 fi
 
-echo "${BLUE}---------------------------------------------------${NC}"
-echo "${CYAN}Making sure required packages we need are installed${NC}"
-echo "${BLUE}---------------------------------------------------${NC}"
+echo "${BLUE}----------------------------------------------${NC}"
+echo "${CYAN}Checking that necessary packages are installed${NC}"
+echo "${BLUE}----------------------------------------------${NC}"
 echo
 
 echo "${YELLOW}This may take a while depending on your Internet connection speed"
