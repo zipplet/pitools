@@ -35,6 +35,9 @@ echo "No data (other than the kernel boot command line) is modified on the SD"
 echo "card, and the kernel boot command line file is backed up. You should be"
 echo "able to recover if this fails but no guarentees!"
 echo
+echo "${CYAN}This script and related tools are only intended for Raspbian."
+echo "Usage of them on any other distribution/OS may lead to destruction.${NC}"
+echo
 echo "${GREEN}Before proceeding, please confirm the following:${NC}"
 echo "${YELLOW}1) You have a backup of your current SD card.${NC}"
 echo "${YELLOW}2) You have attached a SINGLE USB mass storage device to your Raspberry Pi.${NC}"
