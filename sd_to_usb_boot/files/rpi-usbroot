@@ -12,6 +12,12 @@ PROGNAME="rpi-usbroot"
 FAKEBOOT="/boot"
 REALBOOT="/bootsd"
 
+# We must run as root
+if [ "$(id -u)" != "0" ]; then
+   echo "${RED}Please run ${PROGNAME} as root${NC}" 1>&2
+   exit 1
+fi
+
 echo "${PROGNAME}: Version 0.1 (20161010)"
 echo "${PROGNAME}: Copyright (c) Michael Nixon 2016"
 

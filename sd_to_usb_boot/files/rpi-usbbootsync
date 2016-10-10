@@ -12,6 +12,12 @@ PROGNAME="rpi-usbbootsync"
 FAKEBOOT="/boot"
 REALBOOT="/bootsd"
 
+# We must run as root
+if [ "$(id -u)" != "0" ]; then
+   echo "${RED}Please run ${PROGNAME} as root${NC}" 1>&2
+   exit 1
+fi
+
 echo "${PROGNAME}: Version 0.1 (20161010)"
 echo "${PROGNAME}: Copyright (c) Michael Nixon 2016"
 
@@ -29,7 +35,7 @@ fi
 
 if ! grep -qs "$REALBOOT" /proc/mounts; then
   echo "${PROGNAME}: Mounting the boot partition from the SD card..."
-  if ! mount /bootsd; then
+  if ! mount "${REALBOOT}"; then
     echo "${PROGNAME}: ${RED}CRITICAL${NC}: Failed to mount ${CYAN}${REALBOOT}${NC}"
     exit 1
   fi
@@ -44,7 +50,7 @@ if ! grep -qs "$REALBOOT" /proc/mounts; then
 fi
 
 echo "${PROGNAME}: ${GREEN}Syncing any boot partition changes${NC}"
-if ! rsync -ax /boot/ /bootsd; then
+if ! rsync -ax "${FAKEBOOT}/" "${REALBOOT}"; then
   echo "${PROGNAME}: ${RED}CRITICAL${NC}: Sync failed"
   exit 1
 fi
