@@ -212,8 +212,8 @@ echo "${BLUE}--------------------------${NC}"
 echo "${CYAN}Making the system bootable${NC}"
 echo "${BLUE}--------------------------${NC}"
 echo
-echo "${GREEN}Creating the mountpoint for the old SD card boot partition...${NC}"
-mkdir $NEWSDBOOT
+echo "${GREEN}Creating the mountpoints...${NC}"
+mkdir "${TEMPMOUNT}${NEWSDBOOT}"
 echo "${GREEN}Modifying the new fstab on the USB device...${NC}"
 sed -i '/mmcblk0p2/s/^/#/' "${TEMPMOUNT}/etc/fstab"
 sed -i "s${SDBOOT}${NEWSDBOOT}/g" "${TEMPMOUNT}/etc/fstab"
