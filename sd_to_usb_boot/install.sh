@@ -189,16 +189,16 @@ fi
 echo "${GREEN}Data transfer from SD to USB successful.${NC}"
 
 echo
-echo "${BLUE}--------------------${NC}"
-echo "${CYAN}Installing the tools${NC}"
-echo "${BLUE}--------------------${NC}"
+echo "${BLUE}-------------------------------------${NC}"
+echo "${CYAN}Installing the tools to the USB media${NC}"
+echo "${BLUE}-------------------------------------${NC}"
 echo
 echo "${GREEN}Installing rpi-usbroot...${NC}"
-cp files/rpi-usbroot /usr/sbin/rpi-usbroot
+cp files/rpi-usbroot "${TEMPMOUNT}/usr/sbin/rpi-usbroot"
 sed -i '/exit 0/i rpi-usbroot' "${TEMPMOUNT}/etc/rc.local"
 echo "${GREEN}Installing rpi-usbbootsync...${NC}"
-cp files/rpi-usbbootsync /usr/sbin/rpi-usbbootsync
-echo "${GREEN}Tools installed${NC}"
+cp files/rpi-usbbootsync "${TEMPMOUNT}/usr/sbin/rpi-usbbootsync"
+echo "${GREEN}Tools installed to USB media.${NC}"
 
 echo
 echo "${BLUE}--------------------------${NC}"
@@ -226,6 +226,7 @@ echo ${CYAN}All finished."
 echo
 echo "If your Pi does not boot properly, you can restore your old boot configuration."
 echo "To do this, put the SD card into a card reader, delete ${CONFIG} and rename ${CONFIGBACKUP} to ${CONFIG}${NC}"
+echo "No other files were modified on your SD card - all of the other changes were made to the new USB partition."
 echo
 echo ${GREEN}
 read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
