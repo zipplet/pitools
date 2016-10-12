@@ -30,6 +30,8 @@ echo "${BLUE}---------------------------------${NC}"
 
 echo
 echo "${RED}This script is designed for modern versions of Raspbian only that use systemd.${NC}"
+echo "${YELLOW}1) A new user account called ${CYAN}autologin${NC} will be created."
+echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup."
 echo
 read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
@@ -37,15 +39,16 @@ if [ ! "$ANSWER" = "y" ]; then
   echo "Aborting."
   exit 1
 fi
-echo
+
 echo "${YELLOW}This script will configure your Pi to autologin at startup with a new"
 echo "user account that we will create now, called ${CYAN}autologin${NC}."
 echo
-echo "If you want this account to start a program after logging in, edit tne file"
-echo "{$CYAN}~/.profile${NC}in the {$CYAN}/home/autologin${NC} directory after."
+echo "If you want this account to start a program after logging in, edit the file"
+echo "${CYAN}~/.profile${NC}in the ${CYAN}/home/autologin${NC} directory after."
 echo
-echo "{$CYAN}Creating the new account. You can use any password you want, but do not"
+echo "${CYAN}Creating the new account. You can use any password you want, but do not"
 echo "forget it incase you need it later.${NC}"
+echo
 adduser autologin
 echo
 
