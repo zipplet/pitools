@@ -43,6 +43,13 @@ if [ ! "$ANSWER" = "y" ]; then
   exit 1
 fi
 
+if [ ! -e "files/autologin\@.service" ]; then
+  echo "${RED}Cannot find files/autologin\@.service. Run this script from it's own directory!${NC}"
+  exit 1
+fi
+
+cp files/autologin\@.service /etc/systemd/system/autologin\@.service
+
 echo "${YELLOW}This script will configure your Pi to autologin at startup with a new"
 echo "user account that we will create now, called ${CYAN}autologin${NC}."
 echo
