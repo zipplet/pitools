@@ -35,6 +35,7 @@ echo "${YELLOW}1) You are familiar with using GPIO pins safely so you will not d
 echo "${YELLOW}2) You have a modern Pi with a 40 pin GPIO connector.${NC}"
 echo "${YELLOW}3) You understand the GPIO pin numbering.${NC}"
 echo 'https://www.element14.com/community/docs/DOC-78055/l/adding-a-shutdown-button-to-the-raspberry-pi-b may be useful'
+echo "${YELLOW}4) GPIO pin 21 is not currently in use.${NC}"
 echo
 read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
