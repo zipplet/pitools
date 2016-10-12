@@ -34,6 +34,7 @@ echo
 echo "${YELLOW}1) A new user account called ${CYAN}autologin${YELLOW} will be created.${NC}"
 echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup.${NC}"
 echo "${YELLOW}3) If the ${CYAN}autologin${YELLOW} account already exists, it will be used as-is.${NC}"
+echo "${YELLOW}4) The account will have the same group memberships as the Pi account but without sudo access.${NC}"
 echo
 read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
@@ -58,6 +59,23 @@ if [ ! -d "/home/autologin" ]; then
   echo "${RED}Cannot find the home directory for the new user. Something went wrong.${NC}"
   exit 1
 fi
+
+echo "${GREEN}Making sure the user is in the right groups ${CYAN}except sudo${GREEN}...${NC}"
+# The same groups as the default Pi user except sudo.
+useradd -G dialout autologin
+useradd -G cdrom autologin
+useradd -G audio autologin
+useradd -G video autologin
+useradd -G plugdev autologin
+useradd -G games autologin
+useradd -G users autologin
+useradd -G input autologin
+useradd -G netdev autologin
+useradd -G spi autologin
+useradd -G i2c autologin
+useradd -G gpio autologin
+
+echo "${GREEN}Setting up auto logon at boot...${NC}"
 
 cp files/autologin\@.service /etc/systemd/system/autologin\@.service
 rm /etc/systemd/system/getty.target.wants/getty@tty1.service
