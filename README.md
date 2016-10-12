@@ -12,9 +12,16 @@ Please see the documentation for each individual tool, do not blindly use them a
 
 ## fpc_3_builder
 
+** Coming soon **
 * Downloads a bootstrap compiler, then downloads the freepascal v3.0.0 source code, compiles it, installs it and sets it as your default freepascal compiler.
 * Raspberry Pi 1 B+ and Pi 2 B supported.
 
 ## autologin
 
 * Creates a new user account on your Pi called autologin, and configures it to automatically login to it on boot.
+
+## simplestatus
+
+* A demo script to run inside the autologin account, with installer.
+* It displays the CPU temperature, RAM usage, CPU load and current IP addresses.
+* Useful for Pi's with tiny LCD displays.
