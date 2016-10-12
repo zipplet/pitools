@@ -33,6 +33,7 @@ echo "${RED}This script is designed for modern versions of Raspbian only that us
 echo
 echo "${YELLOW}1) A new user account called ${CYAN}autologin${YELLOW} will be created.${NC}"
 echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup.${NC}"
+echo "${YELLOW}3) If the ${CYAN}autologin${YELLOW} account already exists, it will be used as-is.${NC}"
 echo
 read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
@@ -63,4 +64,4 @@ rm /etc/systemd/system/getty.target.wants/getty@tty1.service
 ln -s /etc/systemd/system/autologin@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
 
 echo "${GREEN}All done. Your Pi will auto-login with the ${CYAN}autologin${GREEN} account now.${NC}"
-echo "${YELLOW}To undo this, run ${CYAN}undo.sh${NC} at any time."
+echo "${YELLOW}To undo this, run ${CYAN}undo.sh${NC} ${YELLOW}at any time.${NC}"
