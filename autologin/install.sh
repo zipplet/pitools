@@ -43,8 +43,8 @@ if [ ! "$ANSWER" = "y" ]; then
   exit 1
 fi
 
-if [ ! -e "files/autologin\@.service" ]; then
-  echo "${RED}Cannot find files/autologin\@.service. Run this script from it's own directory!${NC}"
+if [ ! -e "files/autologin@.service" ]; then
+  echo "${RED}Cannot find files/autologin@.service. Run this script from its own directory!${NC}"
   exit 1
 fi
 
