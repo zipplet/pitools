@@ -29,6 +29,7 @@ echo "${CYAN}Copyright (c) Michael Nixon 2016 (script Copyright (c) Inderpreet S
 echo "${CYAN}Thanks to Inderpreet Singh for the script.${NC}"
 echo "${BLUE}-------------------------------------------------------------------------${NC}"
 
+echo
 echo "${GREEN}Before proceeding, please confirm the following:${NC}"
 echo "${YELLOW}1) You are familiar with using GPIO pins safely so you will not damage your Pi.${NC}"
 echo "${YELLOW}2) You have a modern Pi with a 40 pin GPIO connector.${NC}"
