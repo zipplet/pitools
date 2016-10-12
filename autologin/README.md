@@ -1,0 +1,11 @@
+# autologin
+
+Make your Pi login automatically at startup easily.
+
+## How?
+
+Rum install.sh as root. An account called autologin will be created and your Pi will be set to login to it automatically at bootup. You can then edit ~/.profile to add commands to run after automatic login, such as starting a program to display graphics or text.
+
+## Can I undo this easily?
+
+Yes. Just run undo.sh as root. You can even re-run install.sh again to re-enable it. Switch as many times as you want!
