@@ -12,7 +12,8 @@ Please see the documentation for each individual tool, do not blindly use them a
 
 ## fpc_3_builder
 
-** Coming soon **
+**Coming soon**
+
 * Downloads a bootstrap compiler, then downloads the freepascal v3.0.0 source code, compiles it, installs it and sets it as your default freepascal compiler.
 * Raspberry Pi 1 B+ and Pi 2 B supported.
 
@@ -25,3 +26,11 @@ Please see the documentation for each individual tool, do not blindly use them a
 * A demo script to run inside the autologin account, with installer.
 * It displays the CPU temperature, RAM usage, CPU load and current IP addresses.
 * Useful for Pi's with tiny LCD displays.
+
+## gpio_soft_poweroff
+
+* Initiates a controlled shutdown of your Raspberry Pi if GPIO pin 21 is connected to ground via a button.
+* On a modern Pi with a 40 pin GPIO connector, connect a button between pins 39 and 40. No resistor is necessary.
+* Logs shutdowns to /var/log/manual_shutdown.log
+* **Make sure you connect the button between the correct GPIO pins!**
+* Based on https://www.element14.com/community/docs/DOC-78055/l/adding-a-shutdown-button-to-the-raspberry-pi-b

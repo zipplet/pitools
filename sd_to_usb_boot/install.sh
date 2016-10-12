@@ -203,7 +203,6 @@ echo
 echo "${GREEN}Installing rpi-usbroot...${NC}"
 cp files/rpi-usbroot "${TEMPMOUNT}/usr/sbin/rpi-usbroot"
 sed -i '/^exit 0/i rpi-usbroot' "${TEMPMOUNT}/etc/rc.local"
-#awk '/exit 0/ { print; print "rpi-usbroot"; next }1' "${TEMPMOUNT}/etc/rc.local"
 echo "${GREEN}Installing rpi-usbbootsync...${NC}"
 cp files/rpi-usbbootsync "${TEMPMOUNT}/usr/sbin/rpi-usbbootsync"
 echo "${GREEN}Tools installed to USB media.${NC}"
