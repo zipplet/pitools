@@ -23,11 +23,11 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 clear
-echo "${BLUE}-----------------------------------------${NC}"
+echo "${BLUE}-------------------------------------------------------------------------${NC}"
 echo "${CYAN}gpio_soft_poweroff version 0.1 (20161010)${NC}"
-echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-echo "${CYAN}Thanks to Inderpreet Singh the script.${NC}"
-echo "${BLUE}-----------------------------------------${NC}"
+echo "${CYAN}Copyright (c) Michael Nixon 2016 (script Copyright (c) Inderpreet Singh).${NC}"
+echo "${CYAN}Thanks to Inderpreet Singh for the script.${NC}"
+echo "${BLUE}-------------------------------------------------------------------------${NC}"
 
 echo "${GREEN}Before proceeding, please confirm the following:${NC}"
 echo "${YELLOW}1) You are familiar with using GPIO pins safely so you will not damage your Pi.${NC}"
