@@ -55,8 +55,23 @@ if [ ! -e "files/display_stats.sh" ]; then
   exit 1
 fi
 
-cp files/* /home/autologin
+cp files/start.sh /home/autologin
+cp files/display_stats.sh /home/autologin
+chown autologin:autologin /home/start.sh
+chown autologin:autologin /home/display_stats.sh
 echo "./start.sh" >> /home/autologin/.profile
 
 echo "${GREEN}All done. Reboot your Pi and give it a try.${NC}"
 echo "${YELLOW}To undo this, remove ${CYAN}./start.sh${YELLOW} from ${CYAN}/home/autologin/.profile${NC}"
+
+echo
+echo "${GREEN}"
+read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
+echo "${NC}"
+if [ ! "$ANSWER" = "y" ]; then
+  echo "Aborting."
+  exit 1
+fi
+
+# Reboot
+reboot

@@ -90,3 +90,16 @@ ln -s /etc/systemd/system/autologin@.service /etc/systemd/system/getty.target.wa
 
 echo "${GREEN}All done. Your Pi will auto-login with the ${CYAN}autologin${GREEN} account now.${NC}"
 echo "${YELLOW}To undo this, run ${CYAN}undo.sh${NC} ${YELLOW}at any time.${NC}"
+
+
+echo
+echo "${GREEN}"
+read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
+echo "${NC}"
+if [ ! "$ANSWER" = "y" ]; then
+  echo "Aborting."
+  exit 1
+fi
+
+# Reboot
+reboot
