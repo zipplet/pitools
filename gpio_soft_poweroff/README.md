@@ -9,9 +9,19 @@ Credits go to **Inderpreet Singh**, thank you.
 * **Make sure you connect the button between the correct GPIO pins!**
 * Based on https://www.element14.com/community/docs/DOC-78055/l/adding-a-shutdown-button-to-the-raspberry-pi-b
 
-## How?
+## How do I use this?
 
 * Connect a button between GPIO pin 21 and ground (the GPIO connector pins 39 and 40 are convenient!)
 * Run install.sh as root, then reboot your Pi.
 * Once your Pi is running, briefly insert a jumper across pins 39+40 and your Pi should shutdown.
 * **It will not power off completely due to hardware limitations.** however it is extremely useful to shutdown the Pi without needing to SSH to it.
+
+## How do I remove it?
+
+* Currently there is no automatic script (coming soon)
+* Run these commands:
+```
+sudo killall -9 shutdown_button.py
+sudo rm /usr/sbin/shutdown_button.py
+```
+* Edit /etc/rc.local and remove the the line that says **/usr/sbin/shutdown_button.py**
