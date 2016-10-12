@@ -69,18 +69,18 @@ fi
 
 echo "${GREEN}Making sure the user is in the right groups ${CYAN}except sudo${GREEN}...${NC}"
 # The same groups as the default Pi user except sudo.
-useradd -G dialout autologin
-useradd -G cdrom autologin
-useradd -G audio autologin
-useradd -G video autologin
-useradd -G plugdev autologin
-useradd -G games autologin
-useradd -G users autologin
-useradd -G input autologin
-useradd -G netdev autologin
-useradd -G spi autologin
-useradd -G i2c autologin
-useradd -G gpio autologin
+usermod -a -G dialout autologin
+usermod -a -G cdrom autologin
+usermod -a -G audio autologin
+usermod -a -G video autologin
+usermod -a -G plugdev autologin
+usermod -a -G games autologin
+usermod -a -G users autologin
+usermod -a -G input autologin
+usermod -a -G netdev autologin
+usermod -a -G spi autologin
+usermod -a -G i2c autologin
+usermod -a -G gpio autologin
 
 echo "${GREEN}Setting up auto logon at boot...${NC}"
 
