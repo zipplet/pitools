@@ -59,6 +59,8 @@ cp files/start.sh /home/autologin
 cp files/display_stats.sh /home/autologin
 chown autologin:autologin /home/autologin/start.sh
 chown autologin:autologin /home/autologin/display_stats.sh
+echo "" >> /home/autologin/.profile
+echo "# Start simple system status display" >> /home/autologin/.profile
 echo "./start.sh" >> /home/autologin/.profile
 
 echo "${GREEN}All done. Reboot your Pi and give it a try.${NC}"
