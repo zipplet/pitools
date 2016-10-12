@@ -30,8 +30,9 @@ echo "${BLUE}---------------------------------${NC}"
 
 echo
 echo "${RED}This script is designed for modern versions of Raspbian only that use systemd.${NC}"
-echo "${YELLOW}1) A new user account called ${CYAN}autologin${NC} will be created."
-echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup."
+echo
+echo "${YELLOW}1) A new user account called ${CYAN}autologin${ELLOW} will be created.${NC}"
+echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup.${NC}"
 echo
 read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
@@ -44,7 +45,7 @@ echo "${YELLOW}This script will configure your Pi to autologin at startup with a
 echo "user account that we will create now, called ${CYAN}autologin${NC}."
 echo
 echo "If you want this account to start a program after logging in, edit the file"
-echo "${CYAN}~/.profile${NC}in the ${CYAN}/home/autologin${NC} directory after."
+echo "${CYAN}~/.profile${NC} in the ${CYAN}/home/autologin${NC} directory after."
 echo
 echo "${CYAN}Creating the new account. You can use any password you want, but do not"
 echo "forget it incase you need it later.${NC}"
@@ -57,7 +58,9 @@ if [ ! -d "/home/autologin" ]; then
   exit 1
 fi
 
-echo '[Service]' > /etc/systemd/system/getty@tty1.service.d/autologin.conf
-echo 'ExecStart=-/sbin/agetty --autologin autologin --noclear I 38400 linux' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+cp files/autologin\@.service /etc/systemd/system/autologin\@.service
+rm /etc/systemd/system/getty.target.wants/getty@tty1.service
+ln -s /etc/systemd/system/autologin@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
 
 echo "${GREEN}All done. Your Pi will auto-login with the ${CYAN}autologin${GREEN} account now.${NC}"
+echo "${YELLOW}To undo this, run ${CYAN}undo.sh${NC} at any time."

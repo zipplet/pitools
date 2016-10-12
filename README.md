@@ -14,3 +14,7 @@ Please see the documentation for each individual tool, do not blindly use them a
 
 * Downloads a bootstrap compiler, then downloads the freepascal v3.0.0 source code, compiles it, installs it and sets it as your default freepascal compiler.
 * Raspberry Pi 1 B+ and Pi 2 B supported.
+
+## autologin
+
+* Creates a new user account on your Pi called autologin, and configures it to automatically login to it on boot.
