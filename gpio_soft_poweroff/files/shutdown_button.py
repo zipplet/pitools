@@ -13,7 +13,6 @@ GPIO.setup(21, GPIO.IN, pull_up_down = GPIO.PUD_UP)
  
 # Our function on what to do when the button is pressed  
 def Shutdown(channel):
-    os.system("set_led 1 0 0")
     os.system("hwclock -w")
     os.system("date >> /var/log/manual_shutdown.log")
     os.system("shutdown -h now")  
