@@ -28,6 +28,7 @@ echo "${CYAN}simplestatus version 0.1 (20161012)${NC}"
 echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
 echo "${BLUE}-----------------------------------${NC}"
 
+echo
 echo "${YELLOW}1) This script assumes you already have an account called ${CYAN}autologin.${NC}"
 echo "${YELLOW}2) A simple demo script that displays useful system stats will be run at login.${NC}"
 echo "${YELLOW}3) You can stop the script at any time with Ctrl+C.${NC}"
