@@ -57,14 +57,13 @@ fi
 
 cp files/start.sh /home/autologin
 cp files/display_stats.sh /home/autologin
-chown autologin:autologin /home/start.sh
-chown autologin:autologin /home/display_stats.sh
+chown autologin:autologin /home/autologin/start.sh
+chown autologin:autologin /home/autologin/display_stats.sh
 echo "./start.sh" >> /home/autologin/.profile
 
 echo "${GREEN}All done. Reboot your Pi and give it a try.${NC}"
 echo "${YELLOW}To undo this, remove ${CYAN}./start.sh${YELLOW} from ${CYAN}/home/autologin/.profile${NC}"
 
-echo
 echo "${GREEN}"
 read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
 echo "${NC}"
