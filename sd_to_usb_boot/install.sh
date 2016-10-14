@@ -5,7 +5,7 @@ if [ ! -e "../common/common.sh" ]; then
   echo "Please run this script from the script directory."
   exit 1
 else
-  source ../common/common.sh
+  . ../common/common.sh
 fi
 
 SDBOOT="/boot"
