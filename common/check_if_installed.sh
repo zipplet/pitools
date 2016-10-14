@@ -5,6 +5,6 @@
 
 if [ -f "$INSTALLMARKFILE" ]; then
   INSTALLED=1
+else
+  INSTALLED=0
 fi
-
-INSTALLED=0
