@@ -36,3 +36,21 @@ This script is almost guarenteed to work as the original kernel still boots from
 The only other downside is that because I want the SD card completely dismounted during operation, /boot must be dismounted. To make things painless (allow software that demands that /boot is mounted to work, allow editing cmdline.txt during use etc), the Pi will synchronise the contents of the SD card /boot partition with a virtual /boot on the USB device during the boot sequence (this takes <1 second) then dismount the SD card. You are then editing a virtual /boot partition. This can be synchronised on demand back to the SD card by running the rpi-usbbootsync tool.
 
 A positive point is that because the SD card /boot partition takes precedence, so if things get screwed up you can fix things the old fashioned way. Stick the SD card in a card reader and edit files as necessary, and they will synchronise back to the virtual /boot partition on the next boot.
+
+## What are the installed tools, and how do I use them?
+
+### rpi-usbroot
+
+This script runs at every boot (currently via /etc/rc.local), and performs the following actions:
+
+* Synchronises the SD card boot partition to the virtual boot partition on the USB media. (If the virtual boot partition has been deleted by accident, it recreates it)
+* Completely dismounts the SD card after that to avoid SD card corruption, even during power loss.
+
+It should never be executed manually.
+
+### rpi-usbbootsync
+
+This script synchronises any changes made to the virtual /boot partition on the USB media back to the SD card on demand.
+
+* Run it as root - **sudo rpi-usbbootsync**
+* Use it if you make changes to a file like config.txt and want to see the changes immediately on the next reboot, before the automatic sync script kicks in.
