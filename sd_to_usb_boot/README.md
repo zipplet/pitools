@@ -54,3 +54,11 @@ This script synchronises any changes made to the virtual /boot partition on the 
 
 * Run it as root - **sudo rpi-usbbootsync**
 * Use it if you make changes to a file like config.txt and want to see the changes immediately on the next reboot, before the automatic sync script kicks in.
+
+### rpi-usbtoolsupdate
+
+**Coming soon**
+
+### rpi-usbrevertboot
+
+**Coming soon**
