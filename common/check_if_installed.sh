@@ -4,7 +4,7 @@
 # Copyright (c) Michael Nixon 2016.
 
 if [ -f "$INSTALLMARKFILE" ]; then
-  exit 1
+  INSTALLED=1
 fi
 
-exit 0
+INSTALLED=0
