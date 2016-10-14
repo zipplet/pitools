@@ -215,21 +215,30 @@ echo "${BLUE}--------------------------${NC}"
 echo
 echo "${GREEN}Creating the mountpoints...${NC}"
 mkdir "${TEMPMOUNT}${NEWSDBOOT}"
+
 echo "${GREEN}Modifying the new fstab on the USB device...${NC}"
 sed -i '/mmcblk0p2/s/^/#/' "${TEMPMOUNT}/etc/fstab"
 sed -i "s${SDBOOT}${NEWSDBOOT}/g" "${TEMPMOUNT}/etc/fstab"
 echo "${USBDEVICEPARTITION}	/	ext4	defaults,noatime	0	1" >> "${TEMPMOUNT}/etc/fstab"
+
 echo "${GREEN}Backing up the current kernel boot configuration...${NC}"
 cp $CONFIG $CONFIGBACKUP
+
 echo "${GREEN}Modifying the kernel boot configuration...${NC}"
 sed -i "s|root=\/dev\/mmcblk0p2|root=${USBDEVICEPARTITION} rootdelay=5|" $CONFIG
+
+echo "${GREEN}Marking this tool as installed...${NC}"
+# Normally we would do this:
+# . $SCRIPT_MARK_AS_INSTALLED
+# But we cannot as we want to mark the USB device not the SD card. So do it manually.
+date > "{$TEMPMOUNT}${INSTALLMARKFILE}"
+
 echo
 echo "${GREEN}Dismounting the USB device...${NC}"
 umount ${USBDEVICEPARTITION}
 echo "${GREEN}Removing the temporary mountpount...${NC}"
 rm -rf $TEMPMOUNT
-echo "${GREEN}Marking this tool as installed...${NC}"
-. $SCRIPT_MARK_AS_INSTALLED
+
 
 echo
 echo
