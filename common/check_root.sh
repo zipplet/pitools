@@ -7,5 +7,3 @@ if [ "$(id -u)" != "0" ]; then
    echo "${RED}Please run this program as root (or use sudo)${NC}" 1>&2
    exit 1
 fi
-
-exit 0
