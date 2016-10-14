@@ -11,6 +11,9 @@ NC='\033[0m'
 PROGNAME="rpi-usbbootsync"
 FAKEBOOT="/boot"
 REALBOOT="/bootsd"
+INSTALLMARKDIR="/pitools"
+INSTALLMARK="sd_to_usb_boot"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
 if [ "$(id -u)" != "0" ]; then
@@ -18,7 +21,12 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-echo "${PROGNAME}: Version 0.1 (20161010)"
+if [ ! -e "$INSTALLMARKFILE" ]; then
+  echo "${RED}${INSTALLMARK} is not installed, bailing!.${NC}"
+  exit 1
+fi
+
+echo "${PROGNAME}: Version 0.2 (20161014)"
 echo "${PROGNAME}: Copyright (c) Michael Nixon 2016"
 
 if [ ! -d "$REALBOOT" ]; then

@@ -34,3 +34,8 @@ Please see the documentation for each individual tool, do not blindly use them a
 * Logs shutdowns to /var/log/manual_shutdown.log
 * **Make sure you connect the button between the correct GPIO pins!**
 * Based on https://www.element14.com/community/docs/DOC-78055/l/adding-a-shutdown-button-to-the-raspberry-pi-b
+
+## ds3231_setup
+
+* Configures your Raspberry Pi to use a DS3231 RTC module properly
+* Yes, even with systemd and ntpd - it "just works"

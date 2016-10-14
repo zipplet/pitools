@@ -31,6 +31,7 @@ echo "${BLUE}---------------------------------${NC}"
 echo
 echo "${RED}This script is designed for modern versions of Raspbian only that use systemd.${NC}"
 echo
+echo "${GREEN}Before proceeding, please confirm the following:${NC}"
 echo "${YELLOW}1) A new user account called ${CYAN}autologin${YELLOW} will be created.${NC}"
 echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup.${NC}"
 echo "${YELLOW}3) If the ${CYAN}autologin${YELLOW} account already exists, it will be used as-is.${NC}"

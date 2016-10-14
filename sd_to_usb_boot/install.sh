@@ -15,6 +15,9 @@ USBDEVICE2="/dev/sdb"
 TEMPMOUNT="/mnt/tempmount"
 CONFIG="/boot/cmdline.txt"
 CONFIGBACKUP="/boot/cmdline.txt.backup"
+INSTALLMARKDIR="/pitools"
+INSTALLMARK="sd_to_usb_boot"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
 if [ "$(id -u)" != "0" ]; then
@@ -22,9 +25,14 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+if [ -e "$INSTALLMARKFILE" ]; then
+  echo "${RED}${INSTALLMARK} is already installed.${NC}"
+  exit 1
+fi
+
 clear
 echo "${BLUE}-------------------------------------${NC}"
-echo "${CYAN}sd_to_usb_boot version 0.1 (20161010)${NC}"
+echo "${CYAN}sd_to_usb_boot version 0.2 (20161014)${NC}"
 echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
 echo "${CYAN}Thanks to Adafruit for the idea.${NC}"
 echo "${BLUE}-------------------------------------${NC}"
@@ -63,11 +71,6 @@ fi
 
 if [ -e "$USBDEVICE2" ]; then
   echo "${RED}Multiple USB mass storage devices found${NC}"
-  exit 1
-fi
-
-if [ -d "$NEWSDBOOT" ]; then
-  echo "${RED}This Pi has already had this tool run on it before${NC}"
   exit 1
 fi
 
@@ -227,6 +230,12 @@ echo "${GREEN}Dismounting the USB device...${NC}"
 umount ${USBDEVICEPARTITION}
 echo "${GREEN}Removing the temporary mountpount...${NC}"
 rm -rf $TEMPMOUNT
+echo "${GREEN}Marking this tool as installed...${NC}"
+if [ ! -d "$INSTALLMARKDIR" ]; then
+  mkdir $INSTALLMARKDIR
+fi
+touch $INSTALLMARKFILE
+
 echo
 echo
 echo "${CYAN}All finished.${NC}"
