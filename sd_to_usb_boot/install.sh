@@ -20,8 +20,8 @@ INSTALLMARK="sd_to_usb_boot"
 INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
-source $SCRIPT_CHECK_ROOT
-source $SCRIPT_CHECK_IF_INSTALLED
+. $SCRIPT_CHECK_ROOT
+. $SCRIPT_CHECK_IF_INSTALLED
 if [ $? -eq 1 ]; then
   echo "${RED}${INSTALLMARK} is already installed.${NC}"
   exit 1
@@ -228,7 +228,7 @@ umount ${USBDEVICEPARTITION}
 echo "${GREEN}Removing the temporary mountpount...${NC}"
 rm -rf $TEMPMOUNT
 echo "${GREEN}Marking this tool as installed...${NC}"
-source $SCRIPT_MARK_AS_INSTALLED
+. $SCRIPT_MARK_AS_INSTALLED
 
 echo
 echo
@@ -239,4 +239,4 @@ echo "To do this, put the SD card into a card reader, delete ${CONFIG} and renam
 echo "No other files were modified on your SD card - all of the other changes were made to the new USB partition."
 echo
 
-source $SCRIPT_WANT_REBOOT
+. $SCRIPT_WANT_REBOOT
