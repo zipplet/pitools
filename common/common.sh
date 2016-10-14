@@ -16,22 +16,22 @@ NC='\033[0m'
 INSTALLMARKDIR="/pitools"
 
 # Check for all common scripts
-if [ ! -e "../common/check_root.sh" ]; then
+if [ ! -f '../common/check_root.sh' ]; then
   echo "Error: Common script missing - check_root.sh"
   exit 1
 fi
 
-if [ ! -e "../common/check_if_installed.sh" ]; then
+if [ ! -f '../common/check_if_installed.sh' ]; then
   echo "Error: Common script missing - check_if_installed.sh"
   exit 1
 fi
 
-if [ ! -e "../common/mark_as_installed.sh" ]; then
+if [ ! -f '../common/mark_as_installed.sh' ]; then
   echo "Error: Common script missing - mark_as_installed.sh"
   exit 1
 fi
 
-if [ ! -e "../common/want_reboot.sh" ]; then
+if [ ! -f '../common/want_reboot.sh' ]; then
   echo "Error: Common script missing - want_reboot.sh"
   exit 1
 fi
