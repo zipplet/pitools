@@ -1,11 +1,12 @@
 #!/bin/sh
+# sd_to_usb_boot - Copyright (c) Michael Nixon 2016.
 
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-CYAN='\033[1;36m'
-NC='\033[0m'
+if [ ! -e "../common/common.sh" ]; then
+  echo "Please run this script from the script directory."
+  exit 1
+else
+  source ../common/common.sh
+fi
 
 SDBOOT="/boot"
 NEWSDBOOT="/bootsd"
@@ -15,17 +16,13 @@ USBDEVICE2="/dev/sdb"
 TEMPMOUNT="/mnt/tempmount"
 CONFIG="/boot/cmdline.txt"
 CONFIGBACKUP="/boot/cmdline.txt.backup"
-INSTALLMARKDIR="/pitools"
 INSTALLMARK="sd_to_usb_boot"
 INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
-if [ "$(id -u)" != "0" ]; then
-   echo "${RED}Please run this installer as root${NC}" 1>&2
-   exit 1
-fi
-
-if [ -e "$INSTALLMARKFILE" ]; then
+source $SCRIPT_CHECK_ROOT
+source $SCRIPT_CHECK_IF_INSTALLED
+if [ $? -eq 1 ]; then
   echo "${RED}${INSTALLMARK} is already installed.${NC}"
   exit 1
 fi
@@ -231,10 +228,7 @@ umount ${USBDEVICEPARTITION}
 echo "${GREEN}Removing the temporary mountpount...${NC}"
 rm -rf $TEMPMOUNT
 echo "${GREEN}Marking this tool as installed...${NC}"
-if [ ! -d "$INSTALLMARKDIR" ]; then
-  mkdir $INSTALLMARKDIR
-fi
-date > $INSTALLMARKFILE
+source $SCRIPT_MARK_AS_INSTALLED
 
 echo
 echo
@@ -244,13 +238,5 @@ echo "If your Pi does not boot properly, you can restore your old boot configura
 echo "To do this, put the SD card into a card reader, delete ${CONFIG} and rename ${CONFIGBACKUP} to ${CONFIG}"
 echo "No other files were modified on your SD card - all of the other changes were made to the new USB partition."
 echo
-echo "${GREEN}"
-read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
-echo "${NC}"
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
-fi
 
-# Reboot
-reboot
+source $SCRIPT_WANT_REBOOT
