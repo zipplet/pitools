@@ -19,9 +19,15 @@ sudo ./install.sh
 
 Make sure you read all of the warnings and follow the instructions. Take backups first!
 
-## Is there not official USB boot support on the Pi 3? Why would I use this?
+## Is there not official USB boot support on the Pi 3?
 
-Yes there is official USB boot support on the Pi 3 (I have not tested that myself) however it has issues with many devices according to the Raspberry Pi Foundation. This script is almost guarenteed to work as the original kernel still boots from the SD card, but it is then told to use the USB device as the root file system. It also works with any Raspberry Pi. The only negative thing is the requirement for an SD card of some kind to be left inserted - but once the Pi has finished booting, the card is UNTOUCHED and unmounted (you can even pull it out, although I would not recommend it).
+Yes there is official USB boot support on the Pi 3 (I have not tested that myself) however it has issues with many devices according to the Raspberry Pi Foundation.
+
+##  Why would I use this?
+
+Your Pi should operate much more quickly from a USB device if you pick a good one, especially a small, cheap USB solid state disk. Even a cheap but reasonable quality 16GB USB flash drive is faster than a UHS-1 SD card in my testing. Also, wear levelling algorithyms may be better. You could also use a hard disk (you will probably need a VERY beefy power supply for the Pi or a powered USB hub).
+
+This script is almost guarenteed to work as the original kernel still boots from the SD card, but it is then told to use the USB device as the root file system. It also works with any Raspberry Pi. The only negative thing is the requirement for an SD card of some kind to be left inserted - but once the Pi has finished booting, the card is UNTOUCHED and unmounted (you can even pull it out, although I would not recommend it).
 
 The only other downside is that because I want the SD card completely dismounted during operation, /boot must be dismounted. To make things painless (allow software that demands that /boot is mounted to work, allow editing cmdline.txt during use etc), the Pi will synchronise the contents of the SD card /boot partition with a virtual /boot on the USB device during the boot sequence (this takes <1 second) then dismount the SD card. You are then editing a virtual /boot partition. This can be synchronised on demand back to the SD card by running the rpi-usbbootsync tool.
 
