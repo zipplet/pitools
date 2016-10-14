@@ -234,7 +234,7 @@ echo "${GREEN}Marking this tool as installed...${NC}"
 if [ ! -d "$INSTALLMARKDIR" ]; then
   mkdir $INSTALLMARKDIR
 fi
-touch $INSTALLMARKFILE
+date > $INSTALLMARKFILE
 
 echo
 echo
