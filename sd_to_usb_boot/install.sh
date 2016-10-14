@@ -21,8 +21,10 @@ INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
 . $SCRIPT_CHECK_ROOT
+
 . $SCRIPT_CHECK_IF_INSTALLED
-if [ $? -eq 1 ]; then
+EXITCODE=$?
+if [ $EXITCODE -eq 1 ]; then
   echo "${RED}${INSTALLMARK} is already installed.${NC}"
   exit 1
 fi
