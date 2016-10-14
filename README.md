@@ -1,7 +1,7 @@
 # pitools
 Tools for doing various things with Raspberry Pi's. All of these target Raspbian unless mentioned otherwise.
 
-Please see the documentation for each individual tool, do not blindly use them as some may damage data if used incorrectly or cause unwanted side effects.
+Please see the documentation for each individual tool, do not blindly use them as some may damage data if used incorrectly or cause unwanted side effects. Here is a list of all the tools/directories and what they do.
 
 ## sd_to_usb_boot
 
@@ -12,7 +12,7 @@ Please see the documentation for each individual tool, do not blindly use them a
 
 ## fpc_3_builder
 
-**Coming soon**
+**NOT WORKING YET, COMING SOON**
 
 * Downloads a bootstrap compiler, then downloads the freepascal v3.0.0 source code, compiles it, installs it and sets it as your default freepascal compiler.
 * Raspberry Pi 1 B+ and Pi 2 B supported.
@@ -37,9 +37,11 @@ Please see the documentation for each individual tool, do not blindly use them a
 
 ## ds3231_setup
 
+**NOT WORKING YET, COMING SOON**
+
 * Configures your Raspberry Pi to use a DS3231 RTC module properly
 * Yes, even with systemd and ntpd - it "just works"
 
 ## common
 
-* Common scripts used by others, don't run these.
+* Common scripts used by other tools, don't run these directly.
