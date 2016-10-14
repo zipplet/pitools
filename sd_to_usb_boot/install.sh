@@ -231,6 +231,9 @@ echo "${GREEN}Marking this tool as installed...${NC}"
 # Normally we would do this:
 # . $SCRIPT_MARK_AS_INSTALLED
 # But we cannot as we want to mark the USB device not the SD card. So do it manually.
+if [ ! -d "$INSTALLMARKDIR" ]; then
+  mkdir $INSTALLMARKDIR
+fi
 date > "${TEMPMOUNT}${INSTALLMARKFILE}"
 
 echo

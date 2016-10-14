@@ -21,7 +21,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-if [ ! -e "$INSTALLMARKFILE" ]; then
+if [ ! -f "$INSTALLMARKFILE" ]; then
   echo "${RED}${INSTALLMARK} is not installed, bailing!.${NC}"
   exit 1
 fi
