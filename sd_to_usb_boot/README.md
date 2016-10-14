@@ -2,6 +2,10 @@
 
 Inspired by: https://learn.adafruit.com/external-drive-as-raspberry-pi-root/
 
+## Status
+
+**Stable; ready for use.**
+
 ## What is this?
 
 This is an automated tool to make your Raspberry Pi run the OS from any USB device. Simply insert a USB device, boot your Pi into console only mode and run the install script, sit back and relax!

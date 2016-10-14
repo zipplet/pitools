@@ -26,47 +26,47 @@ if [ ! -e "$INSTALLMARKFILE" ]; then
   exit 1
 fi
 
-echo "${PROGNAME}: Version 0.2 (20161014)"
-echo "${PROGNAME}: Copyright (c) Michael Nixon 2016"
+echo "${CYAN}${PROGNAME}${NC}: Version 0.2 (20161014)"
+echo "${CYAN}${PROGNAME}${NC}: Copyright (c) Michael Nixon 2016"
 
 if [ ! -d "$REALBOOT" ]; then
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: ${CYAN}${REALBOOT}${NC} does not exist."
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Giving up - something is badly wrong."
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: ${CYAN}${REALBOOT}${NC} does not exist."
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: Giving up - something is badly wrong."
   exit 1
 fi
 
 if [ ! -d "$FAKEBOOT" ]; then
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: ${CYAN}${FAKEBOOT}${NC} does not exist."
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Giving up - something is badly wrong."
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: ${CYAN}${FAKEBOOT}${NC} does not exist."
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: Giving up - something is badly wrong."
   exit 1
 fi
 
 if ! grep -qs "$REALBOOT" /proc/mounts; then
-  echo "${PROGNAME}: Mounting the boot partition from the SD card..."
+  echo "${CYAN}${PROGNAME}${NC}: Mounting the boot partition from the SD card..."
   if ! mount "${REALBOOT}"; then
-    echo "${PROGNAME}: ${RED}CRITICAL${NC}: Failed to mount ${CYAN}${REALBOOT}${NC}"
+    echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: Failed to mount ${CYAN}${REALBOOT}${NC}"
     exit 1
   fi
 else
-  echo "${PROGNAME}: ${YELLOW}WARNING${NC}: ${CYAN}${REALBOOT}${NC} was already mounted."
+  echo "${CYAN}${PROGNAME}${NC}: ${YELLOW}WARNING${NC}: ${CYAN}${REALBOOT}${NC} was already mounted."
 fi
 
 # Double check we did actually mount it
 if ! grep -qs "$REALBOOT" /proc/mounts; then
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Mount succeeded, but cannot see it"
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: Mount succeeded, but cannot see it"
   exit 1
 fi
 
-echo "${PROGNAME}: ${GREEN}Syncing any boot partition changes${NC}"
+echo "${CYAN}${PROGNAME}: ${GREEN}Syncing any boot partition changes${NC}"
 if ! rsync -ax "${FAKEBOOT}/" "${REALBOOT}"; then
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Sync failed"
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: Sync failed"
   exit 1
 fi
 if ! umount /bootsd; then
-  echo "${PROGNAME}: ${RED}CRITICAL${NC}: Unmount failed"
+  echo "${CYAN}${PROGNAME}${NC}: ${RED}CRITICAL${NC}: Unmount failed"
   exit 1
 else
-  echo "${PROGNAME}: ${GREEN}Success, unmounted the SD card${NC}"
+  echo "${CYAN}${PROGNAME}${NC}: ${GREEN}Success, unmounted the SD card${NC}"
 fi
 
 exit 0
