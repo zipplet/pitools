@@ -19,8 +19,9 @@ if [ $INSTALLED -eq 0 ]; then
   exit 1
 fi
 
-echo "${GREEN}Installing dphys-swapfile...${NC}"
-apt-get install -y dphys-swapfile > /dev/null
+echo "${GREEN}Enabling swapfile service (this may take a while)...${NC}"
+systemctl enable dphys-swapfile
+systemctl start dphys-swapfile
 
 echo "${GREEN}Marking this tool as removed...${NC}"
 . $SCRIPT_MARK_AS_UNINSTALLED

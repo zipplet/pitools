@@ -37,8 +37,9 @@ if [ ! "$ANSWER" = "y" ]; then
   exit 1
 fi
 
-echo "${GREEN}Removing dphys-swapfile...${NC}"
-apt-get purge -y dphys-swapfile > /dev/null
+echo "${GREEN}Disabling swapfile service...${NC}"
+systemctl stop dphys-swapfile
+systemctl disable dphys-swapfile
 
 echo "${GREEN}Removing any old swapfile...${NC}"
 rm /var/swap
