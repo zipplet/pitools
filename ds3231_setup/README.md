@@ -21,3 +21,22 @@ Credit goes to marcus15 ( https://www.raspberrypi.org/forums/viewtopic.php?p=692
 ## Can I uninstall this?
 
 Not yet (by hand only right now).
+
+## Tips
+
+Now that you have a real RTC, once you have confirmed it is working (you have set the initial time using **sudo rtc-fixclock** and rebooted) you should edit **/etc/ntp.conf** and replace the list of NTP servers with ones closer to your location, and remove **iburst** as you now have a real hardware clock. For example, for me:
+
+**Before:**
+```
+server 0.debian.pool.ntp.org iburst
+server 1.debian.pool.ntp.org iburst
+server 2.debian.pool.ntp.org iburst
+server 3.debian.pool.ntp.org iburst
+```
+
+**After:** (I am in Japan, so I handpicked these)
+```
+server ntp1.jst.mfeed.ad.jp
+server ntp2.jst.mfeed.ad.jp
+server ntp3.jst.mfeed.ad.jp
+```
