@@ -36,8 +36,14 @@ if [ ! -f '../common/want_reboot.sh' ]; then
   exit 1
 fi
 
+if [ ! -f '../common/mark_as_uninstalled.sh' ]; then
+  echo "Error: Common script missing - mark_as_uninstalled.sh"
+  exit 1
+fi
+
 # Set variable names for all common scripts
 SCRIPT_CHECK_ROOT="../common/check_root.sh"
 SCRIPT_CHECK_IF_INSTALLED="../common/check_if_installed.sh"
 SCRIPT_MARK_AS_INSTALLED="../common/mark_as_installed.sh"
+SCRIPT_MARK_AS_UNINSTALLED="../common/mark_as_uninstalled.sh"
 SCRIPT_WANT_REBOOT="../common/want_reboot.sh"

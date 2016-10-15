@@ -47,6 +47,8 @@ fi
 rm /etc/systemd/system/getty.target.wants/getty@tty1.service
 ln -s /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
 
+. $SCRIPT_MARK_AS_UNINSTALLED
+
 echo "${GREEN}All done. Your Pi will no longer auto login at boot.${NC}"
 
 . $SCRIPT_WANT_REBOOT

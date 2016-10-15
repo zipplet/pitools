@@ -10,4 +10,4 @@ Run install.sh as root. An account called autologin will be created if it does n
 
 ## Can I undo this easily?
 
-Yes. Just run undo.sh as root. You can even re-run install.sh again to re-enable it. Switch as many times as you want!
+Yes. Just run uninstall.sh as root. You can even re-run install.sh again to re-enable it. Switch as many times as you want!
