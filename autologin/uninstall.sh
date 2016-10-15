@@ -14,7 +14,7 @@ INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 . $SCRIPT_CHECK_ROOT
 
 . $SCRIPT_CHECK_IF_INSTALLED
-if [ INSTALLED -eq 0 ]; then
+if [ $INSTALLED -eq 0 ]; then
   echo "${RED}${INSTALLMARK} is not installed.${NC}"
   exit 1
 fi
