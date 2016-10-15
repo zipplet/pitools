@@ -3,6 +3,10 @@
 Configures your Raspberry Pi to use a DS3231 RTC module properly.
 Credit goes to XXXXX ( https://www.raspberrypi.org/forums/viewtopic.php?p=692662 )
 
+## Status
+
+**Don't touch this, not ready**
+
 ## How do I install this?
 
 * Turn off your Raspberry Pi first ;)

@@ -23,6 +23,12 @@ fi
 INSTALLMARK="simplestatus"
 INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
+. $SCRIPT_CHECK_IF_INSTALLED
+if [ $INSTALLED -eq 1 ]; then
+  echo "${RED}${INSTALLMARK} is already installed.${NC}"
+  exit 1
+fi
+
 clear
 echo "${BLUE}-----------------------------------${NC}"
 echo "${CYAN}simplestatus version 0.2 (20161016)${NC}"
