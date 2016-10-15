@@ -1,21 +1,14 @@
 #!/bin/sh
 
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-CYAN='\033[1;36m'
-NC='\033[0m'
-
-INSTALLMARK="autologin"
-INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
-
 if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."
   exit 1
 else
   . ../common/common.sh
 fi
+
+INSTALLMARK="autologin"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
 . $SCRIPT_CHECK_ROOT
