@@ -1,6 +1,10 @@
 # simplestatus
 
-Designed as an example for use with the **autologin** script, this adds a simple program that runs automatically once the **autologin** user logs in, that regularly displays some system statistics. 
+Designed as an example for use with the **autologin** tool, this adds a simple program that runs automatically once the **autologin** user logs in, that regularly displays some system statistics. 
+
+## Dependencies
+
+* Requires the **autologin** tool to be installed.
 
 ## Status
 
