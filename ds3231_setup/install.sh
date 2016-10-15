@@ -48,6 +48,11 @@ if [ ! -f "files/hwclock-stop.service" ]; then
   exit 1
 fi
 
+if [ ! -f "files/rtc-fixclock" ]; then
+  echo "${RED}Cannot find files/rtc-fixclock - Run this script from its own directory!${NC}"
+  exit 1
+fi
+
 echo "${GREEN}Installing systemd services...${NC}"
 cp files/hwclock-stop.service /lib/systemd/system/hwclock-stop.service
 systemctl enable hwclock-stop
@@ -66,15 +71,18 @@ if [ -f "/pitools/sd_to_usb_boot" ]; then
 fi
 
 echo "${GREEN}Making sure fake-hwclock is removed...${NC}"
-apt-get purge fake-hwclock
+apt-get purge fake-hwclock > /dev/null
 
 echo "${GREEN}Removing any old adjtime file...${NC}"
 rm /etc/adjtime
+
+echo "${GREEN}Installing rtc-fixclock tool...${NC}"
+cp files/rtc-fixclock /usr/sbin/rtc-fixclock
 
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
 
 echo "${GREEN}All done. A reboot is required.${NC}"
-echo "${YELLOW}After rebooting for the first time and setting the correct time, please run ${CYAN}hwclock -w${YELLOW} and then reboot again.${NC}"
+echo "${YELLOW}After rebooting for the first time and setting the correct time, set the clock properly (or wait for ntpd to do so) and then please run ${CYAN}sudo rtc-fixclock${YELLOW} to finish this installation.${NC}"
 
 . $SCRIPT_WANT_REBOOT

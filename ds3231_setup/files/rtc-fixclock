@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if [ ! -f "../common/common.sh" ]; then
+  echo "Please run this script from the script directory."
+  exit 1
+else
+  . ../common/common.sh
+fi
+
+INSTALLMARK="ds3231_setup"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
+
+# We must run as root
+. $SCRIPT_CHECK_ROOT
+
+. $SCRIPT_CHECK_IF_INSTALLED
+if [ $INSTALLED -eq 0 ]; then
+  echo "${RED}${INSTALLMARK} is not installed.${NC}"
+  exit 1
+fi
+
+date
+echo
+read -p "Is the date and time displayed above correct? (y/n) :" -r ANSWER
+echo
+if [ ! "$ANSWER" = "y" ]; then
+  echo "Aborting. Set the clock first or wait for ntpd to do it!"
+  exit 1
+fi
+
+echo "${GREEN}Removing any old adjtime file...${NC}"
+rm /etc/adjtime
+
+echo "${GREEN}Setting the hardware clock...${NC}"
+hwclock -w
+
+echo "${GREEN}All done. A reboot is required - and then your clock will work properly.${NC}"
+
+. $SCRIPT_WANT_REBOOT
