@@ -1,0 +1,4 @@
+dtparam=i2c_arm=on
+
+# RTC
+dtoverlay=i2c-rtc,ds3231
