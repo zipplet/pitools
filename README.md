@@ -3,6 +3,8 @@ Tools for doing various things with Raspberry Pi's. All of these target Raspbian
 
 Please see the documentation for each individual tool, do not blindly use them as some may damage data if used incorrectly or cause unwanted side effects. Here is a list of all the tools/directories and what they do.
 
+These tools maintain a list of which ones have been installed under **/pitools** as some have dependencies on others, and I did not want to go with the hassle of making debian packages. Where this is the case, the readme for each tool explains this.
+
 ## sd_to_usb_boot
 
 * Copies your existing Raspberry Pi installation from the SD card to an attached USB device, and configures it to run from the USB device rather than the SD card. The SD card is still required to load the initial kernel, but you are free to use the old Linux partition on the SD card for something else afterwards. (The FAT32 boot partition must be left alone)
