@@ -10,7 +10,7 @@ NC='\033[0m'
 INSTALLMARK="autologin"
 INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
-if [ ! -e "../common/common.sh" ]; then
+if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."
   exit 1
 else
@@ -21,7 +21,7 @@ fi
 . $SCRIPT_CHECK_ROOT
 
 . $SCRIPT_CHECK_IF_INSTALLED
-if [ $INSTALLED -eq 1 ]; then
+if [ INSTALLED -eq 1 ]; then
   echo "${RED}${INSTALLMARK} is already installed.${NC}"
   exit 1
 fi
