@@ -58,11 +58,18 @@ cp /etc/init.d/ntp /etc/init.d/ntp.backup
 sed -i '/^log_daemon_msg "Starting NTP server"/i hwclock -s' "/etc/init.d/ntp"
 
 echo "${GREEN}Adding driver overlay...${NC}"
+echo "# RTC support" >> /boot/config.txt
 echo "dtoverlay=i2c-rtc,ds3231" >> /boot/config.txt
 
 if [ -f "/pitools/sd_to_usb_boot" ]; then
   rpi-usbbootsync
 fi
+
+echo "${GREEN}Making sure fake-hwclock is removed...${NC}"
+apt-get purge fake-hwclock
+
+echo "${GREEN}Removing any old adjtime file...${NC}"
+rm /etc/adjtime
 
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
