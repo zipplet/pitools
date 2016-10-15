@@ -26,6 +26,6 @@ systemctl start dphys-swapfile
 echo "${GREEN}Marking this tool as removed...${NC}"
 . $SCRIPT_MARK_AS_UNINSTALLED
 
-echo "${GREEN}All done. A reboot is required.${NC}"
-
-. $SCRIPT_WANT_REBOOT
+echo "${GREEN}All done.${NC}"
+echo
+free -m
