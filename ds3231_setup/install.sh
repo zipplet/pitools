@@ -48,6 +48,11 @@ if [ ! -f "files/hwclock-stop.service" ]; then
   exit 1
 fi
 
+if [ ! -f "files/ntp" ]; then
+  echo "${RED}Cannot find files/ntp - Run this script from its own directory!${NC}"
+  exit 1
+fi
+
 if [ ! -f "files/rtc-fixclock" ]; then
   echo "${RED}Cannot find files/rtc-fixclock - Run this script from its own directory!${NC}"
   exit 1
@@ -57,10 +62,10 @@ echo "${GREEN}Installing systemd services...${NC}"
 cp files/hwclock-stop.service /lib/systemd/system/hwclock-stop.service
 systemctl enable hwclock-stop
 
-echo "${GREEN}Working around a silly bug by modifying /etc/init.d/ntp...${NC}"
+echo "${GREEN}Working around a silly bug with a replacement /etc/init.d/ntp...${NC}"
 echo "(a backup has been created at /etc/init.d/ntp.backup)"
-cp /etc/init.d/ntp /etc/init.d/ntp.backup
-sed -i '/^log_daemon_msg "Starting NTP server"/i hwclock -s' "/etc/init.d/ntp"
+mv /etc/init.d/ntp /etc/init.d/ntp.backup
+cp files/ntp /etc/init.d/ntp
 
 echo "${GREEN}Adding driver overlay...${NC}"
 echo "# RTC support" >> /boot/config.txt
