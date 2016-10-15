@@ -5,7 +5,40 @@ Inspired by: https://learn.adafruit.com/external-drive-as-raspberry-pi-root/
 ## Status
 
 **Stable; ready for use.**
-**WARNING:** Plugging in USB devices like network adaptors while you are booting from a USB device may cause the USB storage device to malfunction (you will see lots of kernel error messages and your Pi will stop working properly until rebooted), possibly due to a kernel bug. I recommend having all USB devices you plan to use plugged in before powering up the Pi if you boot from USB. USB network adaptors in particular exhibit this issue. I confirmed that if you plug in the network adaptors (I tested an ethernet and wi-fi one) before connecting power, it works fine.
+
+**WARNING:** Plugging in USB devices like network adaptors while you are booting from a USB device may cause the USB storage device to malfunction (you will see lots of kernel error messages and your Pi will stop working properly until rebooted), possibly due to a kernel bug. I recommend having all USB devices you plan to use plugged in before powering up the Pi if you boot from USB. USB network adaptors in particular exhibit this issue. I confirmed that if you plug in the network adaptors (I tested an ethernet and wi-fi one) before connecting power, it works fine - proof:
+
+```
+root@testpi:/home/pi# ifconfig
+eth0      Link encap:Ethernet  HWaddr b8:27:eb:9a:02:9c <-- Built in NIC
+          inet addr:192.168.100.40  Bcast:192.168.255.255  Mask:255.255.0.0
+          inet6 addr: fe80::5d2f:6068:e825:df5f/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:199 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:109 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:33839 (33.0 KiB)  TX bytes:17341 (16.9 KiB)
+
+eth1      Link encap:Ethernet  HWaddr 34:95:db:2c:5a:04 <-- this is the second NIC! Cable unplugged at the moment
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:457 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:466 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:68807 (67.1 KiB)  TX bytes:94642 (92.4 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:214 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:214 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1
+          RX bytes:19828 (19.3 KiB)  TX bytes:19828 (19.3 KiB)
+          
+root@testpi:/home/pi# mount
+/dev/sda1 on / type ext4 (rw,noatime,data=ordered) <-- booted from USB!
+<rest snipped>
+```
 
 ## What is this?
 
