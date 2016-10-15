@@ -47,6 +47,10 @@ These tools maintain a list of which ones have been installed under **/pitools**
 * Configures your Raspberry Pi to provide the maximum possible power from the USB ports.
 * Make sure you have a beefy PSU!
 
+## no_swap
+
+* Disables the swapfile on your Raspberry Pi.
+
 ## common
 
 * Common scripts used by other tools, don't run these directly.
