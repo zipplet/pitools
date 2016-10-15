@@ -27,5 +27,6 @@ Credits go to **Inderpreet Singh**, thank you.
 ```
 sudo killall -9 shutdown_button.py
 sudo rm /usr/sbin/shutdown_button.py
+sudo rm /pitools/gpio_soft_poweroff
 ```
 * Edit /etc/rc.local and remove the the line that says **/usr/sbin/shutdown_button.py**

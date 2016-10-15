@@ -1,41 +1,35 @@
 #!/bin/sh
 
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-CYAN='\033[1;36m'
-NC='\033[0m'
-
-INSTALLMARKDIR="/pitools"
-INSTALLMARK="ds3231_setup"
-INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
-CURRENTDATE=$(date)
-CONFIGFILE="/boot/config.txt"
-
-# We must run as root
-if [ "$(id -u)" != "0" ]; then
-   echo "${RED}Please run this installer as root${NC}" 1>&2
-   exit 1
+if [ ! -f "../common/common.sh" ]; then
+  echo "Please run this script from the script directory."
+  exit 1
+else
+  . ../common/common.sh
 fi
 
-if [ -e "$INSTALLMARKFILE" ]; then
+INSTALLMARK="ds3231_setup"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
+
+# We must run as root
+. $SCRIPT_CHECK_ROOT
+
+. $SCRIPT_CHECK_IF_INSTALLED
+if [ $INSTALLED -eq 1 ]; then
   echo "${RED}${INSTALLMARK} is already installed.${NC}"
   exit 1
 fi
 
 clear
 echo "${BLUE}-----------------------------------${NC}"
-echo "${CYAN}ds3231_setup version 0.1 (20161014)${NC}"
+echo "${CYAN}ds3231_setup version 0.1 (20161016)${NC}"
 echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
 echo "${BLUE}-----------------------------------${NC}"
 
 echo
 echo "${GREEN}Before proceeding, please confirm the following:${NC}"
 echo "${YELLOW}1) This script assumes you have connected a ${CYAN}DS3231${YELLOW} based RTC to your Raspberry Pi.${NC}"
-echo "${YELLOW}2) Your Raspberry Pi clock must be correct before proceeding any further.${NC}"
+echo "${YELLOW}2) You will need to manually force a clock set after booting for the first time after doing this.${NC}"
 echo
-echo "${GREEN}The current date and time is ${CURRENTDATE}, if this is wrong stop and fix that first!${NC}"
 echo
 read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
 echo
@@ -44,39 +38,36 @@ if [ ! "$ANSWER" = "y" ]; then
   exit 1
 fi
 
-if [ ! -d "/home/autologin" ]; then
-  echo "${RED}There is no autologin account (/home/autologin)!${NC}"
+if ! grep -qs "dtparam=i2c_arm=on" /boot/config.txt; then
+  echo "${RED}i2c support needs to be enabled on this Raspberry Pi. Please run raspi-config.${NC}"
   exit 1
 fi
 
-if [ ! -e "files/start.sh" ]; then
-  echo "${RED}Cannot find files/start.sh - Run this script from its own directory!${NC}"
+if [ ! -f "files/hwclock-stop.service" ]; then
+  echo "${RED}Cannot find files/hwclock-stop.service - Run this script from its own directory!${NC}"
   exit 1
 fi
 
-if [ ! -e "files/display_stats.sh" ]; then
-  echo "${RED}Cannot find files/display_stats.sh - Run this script from its own directory!${NC}"
-  exit 1
+echo "${GREEN}Installing systemd services...${NC}"
+cp files/hwclock-stop.service /lib/systemd/system/hwclock-stop.service
+systemctl enable hwclock-stop
+
+echo "${GREEN}Working around a silly bug by modifying /etc/init.d/ntp...${NC}"
+echo "(a backup has been created at /etc/init.d/ntp.backup)"
+cp /etc/init.d/ntp /etc/init.d/ntp.backup
+sed -i '/^log_daemon_msg "Starting NTP server"/i hwclock -s' "/etc/init.d/ntp"
+
+echo "${GREEN}Adding driver overlay...${NC}"
+echo "dtoverlay=i2c-rtc,ds3231" >> /boot/config.txt
+
+if [ -f "/pitools/sd_to_usb_boot" ]; then
+  rpi-usbbootsync
 fi
 
-cp files/start.sh /home/autologin
-cp files/display_stats.sh /home/autologin
-chown autologin:autologin /home/autologin/start.sh
-chown autologin:autologin /home/autologin/display_stats.sh
-echo "" >> /home/autologin/.profile
-echo "# Start simple system status display" >> /home/autologin/.profile
-echo "./start.sh" >> /home/autologin/.profile
+echo "${GREEN}Marking this tool as installed...${NC}"
+. $SCRIPT_MARK_AS_INSTALLED
 
-echo "${GREEN}All done. Reboot your Pi and give it a try.${NC}"
-echo "${YELLOW}To undo this, remove ${CYAN}./start.sh${YELLOW} from ${CYAN}/home/autologin/.profile${NC}"
+echo "${GREEN}All done. A reboot is required.${NC}"
+echo "${YELLOW}After rebooting for the first time and setting the correct time, please run ${CYAN}hwclock -w${YELLOW} and then reboot again.${NC}"
 
-echo "${GREEN}"
-read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
-echo "${NC}"
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
-fi
-
-# Reboot
-reboot
+. $SCRIPT_WANT_REBOOT
