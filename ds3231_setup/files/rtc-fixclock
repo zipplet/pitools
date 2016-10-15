@@ -35,13 +35,17 @@ if [ ! "$ANSWER" = "y" ]; then
   exit 1
 fi
 
+echo "${GREEN}Stopping the ntp service temporarily to reset the clock drift file...${NC}"
+systemctl stop ntp
+rm /var/lib/ntp/ntp.drift
+
 echo "${GREEN}Removing any old adjtime file...${NC}"
 rm /etc/adjtime
 
 echo "${GREEN}Setting the hardware clock...${NC}"
 hwclock -w
 
-echo "${GREEN}All done. A reboot is required - and then your clock will work properly.${NC}"
+echo "${GREEN}All done. A reboot is required as soon as possible.${NC}"
 
 echo "${GREEN}"
 read -p "Would you like to reboot the Raspberry Pi now? (y/n) :" -r ANSWER
