@@ -37,10 +37,13 @@ Please see the documentation for each individual tool, do not blindly use them a
 
 ## ds3231_setup
 
-**NOT WORKING YET, COMING SOON**
-
 * Configures your Raspberry Pi to use a DS3231 RTC module properly
 * Yes, even with systemd and ntpd - it "just works"
+
+## usb_current_boost
+
+* Configures your Raspberry Pi to provide the maximum possible power from the USB ports.
+* Make sure you have a beefy PSU!
 
 ## common
 
