@@ -9,6 +9,10 @@ Credits go to **Inderpreet Singh**, thank you.
 * **Make sure you connect the button between the correct GPIO pins!**
 * Based on https://www.element14.com/community/docs/DOC-78055/l/adding-a-shutdown-button-to-the-raspberry-pi-b
 
+## Status
+
+**Stable; ready for use.**
+
 ## How do I use this?
 
 * Connect a button between GPIO pin 21 and ground (the GPIO connector pins 39 and 40 are convenient!)

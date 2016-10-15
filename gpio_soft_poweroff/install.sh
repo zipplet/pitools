@@ -1,20 +1,14 @@
 #!/bin/sh
 
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-CYAN='\033[1;36m'
-NC='\033[0m'
+if [ ! -f "../common/common.sh" ]; then
+  echo "Please run this script from the script directory."
+  exit 1
+else
+  . ../common/common.sh
+fi
 
-SDBOOT="/boot"
-NEWSDBOOT="/bootsd"
-USBDEVICE="/dev/sda"
-USBDEVICEPARTITION="${USBDEVICE}1"
-USBDEVICE2="/dev/sdb"
-TEMPMOUNT="/mnt/tempmount"
-CONFIG="/boot/cmdline.txt"
-CONFIGBACKUP="/boot/cmdline.txt.backup"
+INSTALLMARK="gpio_soft_poweroff"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
 if [ "$(id -u)" != "0" ]; then
@@ -22,9 +16,18 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+# We must run as root
+. $SCRIPT_CHECK_ROOT
+
+. $SCRIPT_CHECK_IF_INSTALLED
+if [ $INSTALLED -eq 1 ]; then
+  echo "${RED}${INSTALLMARK} is already installed.${NC}"
+  exit 1
+fi
+
 clear
 echo "${BLUE}-------------------------------------------------------------------------${NC}"
-echo "${CYAN}gpio_soft_poweroff version 0.1 (20161010)${NC}"
+echo "${CYAN}gpio_soft_poweroff version 0.2 (20161016)${NC}"
 echo "${CYAN}Copyright (c) Michael Nixon 2016 (script Copyright (c) Inderpreet Singh).${NC}"
 echo "${CYAN}Thanks to Inderpreet Singh for the script.${NC}"
 echo "${BLUE}-------------------------------------------------------------------------${NC}"
@@ -52,16 +55,9 @@ fi
 echo "${GREEN}Setting things up...${NC}"
 cp files/shutdown_button.py /usr/sbin
 sed -i '/^exit 0/i /usr/sbin/shutdown_button.py &' "/etc/rc.local"
+echo "${GREEN}Marking this tool as installed...${NC}"
+. $SCRIPT_MARK_AS_INSTALLED
 echo "${GREEN}All done.${NC}"
 echo "You can test this after rebooting by briefly shorting pins 39 and 40 with a jumper (make sure you understand the pin numbering before doing this or ${CYAN}you might destroy your Pi!${NC}"
 
-echo "${GREEN}"
-read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
-echo "${NC}"
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
-fi
-
-# Reboot
-reboot
+. $SCRIPT_WANT_REBOOT
