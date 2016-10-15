@@ -1,35 +1,36 @@
 #!/bin/sh
 
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-CYAN='\033[1;36m'
-NC='\033[0m'
-
-SDBOOT="/boot"
-NEWSDBOOT="/bootsd"
-USBDEVICE="/dev/sda"
-USBDEVICEPARTITION="${USBDEVICE}1"
-USBDEVICE2="/dev/sdb"
-TEMPMOUNT="/mnt/tempmount"
-CONFIG="/boot/cmdline.txt"
-CONFIGBACKUP="/boot/cmdline.txt.backup"
+if [ ! -f "../common/common.sh" ]; then
+  echo "Please run this script from the script directory."
+  exit 1
+else
+  . ../common/common.sh
+fi
 
 # We must run as root
-if [ "$(id -u)" != "0" ]; then
-   echo "${RED}Please run this installer as root${NC}" 1>&2
-   exit 1
+. $SCRIPT_CHECK_ROOT
+
+# First make sure that our dependency, autologin, is installed.
+INSTALLMARK="autologin"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
+
+. $SCRIPT_CHECK_IF_INSTALLED
+if [ $INSTALLED -eq 0 ]; then
+  echo "${RED}${INSTALLMARK} is not installed and is required.${NC}"
+  exit 1
 fi
+
+INSTALLMARK="simplestatus"
+INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 clear
 echo "${BLUE}-----------------------------------${NC}"
-echo "${CYAN}simplestatus version 0.1 (20161012)${NC}"
+echo "${CYAN}simplestatus version 0.2 (20161016)${NC}"
 echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
 echo "${BLUE}-----------------------------------${NC}"
 
 echo
-echo "${YELLOW}1) This script assumes you already have an account called ${CYAN}autologin.${NC}"
+echo "${YELLOW}1) This script assumes you already have an account called ${CYAN}autologin, but if you got this far you probably do.${NC}"
 echo "${YELLOW}2) A simple demo script that displays useful system stats will be run at login.${NC}"
 echo "${YELLOW}3) You can stop the script at any time with Ctrl+C.${NC}"
 echo
@@ -63,16 +64,10 @@ echo "" >> /home/autologin/.profile
 echo "# Start simple system status display" >> /home/autologin/.profile
 echo "./start.sh" >> /home/autologin/.profile
 
+echo "${GREEN}Marking this tool as installed...${NC}"
+. $SCRIPT_MARK_AS_INSTALLED
+
+
 echo "${GREEN}All done. Reboot your Pi and give it a try.${NC}"
-echo "${YELLOW}To undo this, remove ${CYAN}./start.sh${YELLOW} from ${CYAN}/home/autologin/.profile${NC}"
 
-echo "${GREEN}"
-read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
-echo "${NC}"
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
-fi
-
-# Reboot
-reboot
+. $SCRIPT_WANT_REBOOT
