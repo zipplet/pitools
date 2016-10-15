@@ -22,6 +22,29 @@ Credit goes to marcus15 ( https://www.raspberrypi.org/forums/viewtopic.php?p=692
 
 Not yet (by hand only right now).
 
+## Important note about the drift file
+
+**I might automate this later as part of the rtc-fixclock tool**
+
+After the final reboot, please **wait for 15-30 minutes** so that ntpd can create a new drift file (you need a working Internet connection during the entire time). You can verify if this has occured or not, by running this:
+
+```
+ls /var/lib/ntp/
+```
+
+If you see nothing, you need to wait a little longer. Once the initial drift file has been created, run this to check that ntpd is working properly:
+
+```
+root@testpi:/home/zipplet# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*ntp1.jst.mfeed. 133.243.236.17   2 u   64   64   17    3.820   -1.929   1.343
+ ntp2.jst.mfeed. 133.243.236.17   2 u   56   64   17    3.861   -1.736   1.266
+ ntp3.jst.mfeed. 133.243.236.17   2 u   64   64   17    5.718   -2.486   1.344
+```
+
+One server should be marked with an asterisk, in my case the first one. That means ntp is using it as the master server for clock correction. Now, just wait until the driftfile is created. If you see no servers with an asterisk, wait 5 minutes and try again.
+
 ## Tips
 
 Now that you have a real RTC, once you have confirmed it is working (you have set the initial time using **sudo rtc-fixclock** and rebooted) you should edit **/etc/ntp.conf** and replace the list of NTP servers with ones closer to your location, and remove **iburst** as you now have a real hardware clock. For example, for me:
