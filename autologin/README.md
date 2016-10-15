@@ -4,6 +4,10 @@
 
 Make your Pi login automatically at startup easily. 
 
+## Status
+
+**Stable; ready for use.**
+
 ## How?
 
 Run install.sh as root. An account called autologin will be created if it does not exist, and your Pi will be set to login to it automatically at bootup. You can then edit ~/.profile to add commands to run after automatic login, such as starting a program to display graphics or text.
