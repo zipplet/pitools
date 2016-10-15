@@ -97,7 +97,7 @@ echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
 
 echo "${GREEN}All done. Your Pi will auto-login with the ${CYAN}autologin${GREEN} account now.${NC}"
-echo "${YELLOW}To undo this, run ${CYAN}undo.sh${NC} ${YELLOW}at any time.${NC}"
+echo "${YELLOW}To undo this, run ${CYAN}uninstall.sh${NC} ${YELLOW}at any time.${NC}"
 
 echo "${GREEN}"
 read -p "Would you like to reboot your Raspberry Pi now? (y/n) :" -r ANSWER
