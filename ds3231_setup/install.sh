@@ -71,7 +71,7 @@ if [ -f "/pitools/sd_to_usb_boot" ]; then
 fi
 
 echo "${GREEN}Making sure fake-hwclock is removed...${NC}"
-apt-get purge fake-hwclock > /dev/null
+apt-get purge -y fake-hwclock > /dev/null
 
 echo "${GREEN}Removing any old adjtime file...${NC}"
 rm /etc/adjtime
