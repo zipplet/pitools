@@ -4,20 +4,20 @@
 # Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
 
-clear
-echo "${BLUE}---------------------------------${NC}"
-echo "${CYAN}rpi_model version 0.1 (20161120)${NC}"
-echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-echo "${CYAN}Thanks to Adafruit for the idea.${NC}"
-echo "${BLUE}---------------------------------${NC}"
-
-
 if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."
   exit 1
 else
   . ../common/common.sh
 fi
+
+
+clear
+echo "${BLUE}---------------------------------${NC}"
+echo "${CYAN}rpi_model version 0.1 (20161120)${NC}"
+echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
+echo "${CYAN}Thanks to Adafruit for the idea.${NC}"
+echo "${BLUE}---------------------------------${NC}"
 
 . $SCRIPT_GET_PI_MODEL
 
