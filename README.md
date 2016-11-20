@@ -12,35 +12,35 @@ These tools maintain a list of which ones have been installed under **/pitools**
 * Please see the notes under the table for more information.
 * Anything marked as **Tested by me** means that I have that exact hardware revision and have performed testing myself.
 
-Revision | Pi model | RAM | Supported | Tested | Notes |
--------- | -------- | --- | --------- | ------ | ----- |
-Beta | Pi 1 Model B | 256MB | ? | No | Beta board, was this ever released to the public?
-0002 | Pi 1 Model B | 256MB | Yes | No |
-0003 | Pi 1 Model B | 256MB | Yes | No |
-0004 | Pi 1 Model B | 256MB | Yes | No |
-0005 | Pi 1 Model B | 256MB | Yes | No |
-0006 | Pi 1 Model B | 256MB | Yes | No |
-0007 | Pi 1 Model A | 256MB | Yes | No |
-0008 | Pi 1 Model A | 256MB | Yes | No |
-0009 | Pi 1 Model A | 256MB | Yes | No |
-000d | Pi 1 Model B | 512MB | Yes | No | Should work
-000e | Pi 1 Model B | 512MB | Yes | No | Should work
-000f | Pi 1 Model B | 512MB | Yes | No | Should work
-0010 | Pi 1 Model B+ | 512MB | Yes | Yes | **Tested by me**
-0011 | Compute Module | 512MB | ? | No | Please see **note 1**
-0012 | Pi 1 Model A+ | 256MB | Yes | No |
-0013 | Pi 1 Model B+ | 512MB | Yes | No | Should work, newer version of revision 0010
-0014 | Compute Module | 512MB | ? | No | Please see **note 1**
-0015 | Pi 1 Model A+ | 256MB / 512MB | ? | No |
-a01040 | Pi 2 Model B | 1GB | Yes | No | Please see **note 2**
-a01041 | Pi 2 Model B | 1GB | Yes | No | Please see **note 2**
-a21041 | Pi 2 Model B | 1GB | Yes | No | Please see **note 2**
-a22042 | Pi 2 Model B (BCM2837) | 1GB | Yes | No | Please see **note 2**
-900092 | Pi Zero | 512MB | ? | No | Should work (same as Pi 1 chipset)
-900093 | Pi Zero | 512MB | ? | No | Should work (same as Pi 1 chipset)
-920093 | Pi Zero | 512MB | ? | No | Should work (same as Pi 1 chipset)
-a02082 | Pi 3 Model B | 1GB | ? | No | Coming soon
-a22082 | Pi 3 Model B | 1GB | ? | No | Coming soon
+Revision | Pi model | RAM | Supported | Tested | Released | Notes |
+-------- | -------- | --- | --------- | ------ | -------- | ----- |
+Beta | Pi 1 Model B | 256MB | ? | No | 2012 Q1 | Beta board
+0002 | Pi 1 Model B | 256MB | Yes | No | 2012 Q1 | First public board
+0003 | Pi 1 Model B | 256MB | Yes | No | 2012 Q3 | Another beta board?
+0004 | Pi 1 Model B | 256MB | Yes | No | 2012 Q3 |
+0005 | Pi 1 Model B | 256MB | Yes | No | 2012 Q4 |
+0006 | Pi 1 Model B | 256MB | Yes | No | 2012 Q4 |
+0007 | Pi 1 Model A | 256MB | Yes | No | 2013 Q1 |
+0008 | Pi 1 Model A | 256MB | Yes | No | 2013 Q1 |
+0009 | Pi 1 Model A | 256MB | Yes | No | 2013 Q1 |
+000d | Pi 1 Model B | 512MB | Yes | No | 2012 Q4 |
+000e | Pi 1 Model B | 512MB | Yes | No | 2012 Q4 |
+000f | Pi 1 Model B | 512MB | Yes | No | 2014 Q3 |
+0010 | Pi 1 Model B+ | 512MB | Yes | **Yes** | 2014 Q3 | **Tested by me**
+0011 | Compute Module | 512MB | ? | No | 2014 Q2 | See **note 1**
+0012 | Pi 1 Model A+ | 256MB | Yes | No | 2014 Q4 |
+0013 | Pi 1 Model B+ | 512MB | Yes | No | 2015 Q1 | Last Pi 1 Model B+?
+0014 | Compute Module | 512MB | ? | No | 2014 Q2 | See **note 1**
+0015 | Pi 1 Model A+ | 256MB / 512MB | ? | No | ? |
+a01040 | Pi 2 Model B | 1GB | Yes | No | ? | See **note 2**
+a01041 | Pi 2 Model B | 1GB | Yes | No | 2015 Q1 | See **note 2**
+a21041 | Pi 2 Model B | 1GB | Yes | No | 2015 Q1 | See **note 2**
+a22042 | Pi 2 Model B (BCM2837) | 1GB | Yes | No | 2016 Q3 | See **note 2** - Last Pi 2 Model B?
+900092 | Pi Zero | 512MB | ? | No | 2015 Q4 |
+900093 | Pi Zero | 512MB | ? | No | 2016 Q2 |
+920093 | Pi Zero | 512MB | ? | No | 2016 Q4? | Release date uncertain
+a02082 | Pi 3 Model B | 1GB | ? | No | 2016 Q1 | Coming soon
+a22082 | Pi 3 Model B | 1GB | ? | No | 2016 Q1 | Coming soon
 
 Note 1: **I really need help testing this stuff on a compute module;** please perform extensive testing and let me know the results, or a donation of a compute module with breakout board would be **greatly appreciated** (and also be added to my build farm for freepascal compilation of other projects, such as my upcoming game library port for Raspberry Pi and associated games). In Japan, it is difficult to get hold of these without a credit card.
 
