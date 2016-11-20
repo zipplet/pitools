@@ -51,6 +51,10 @@ These tools maintain a list of which ones have been installed under **/pitools**
 
 * Disables the swapfile on your Raspberry Pi.
 
+## rpi_model
+
+* Tells you detailed information about your Raspberry Pi model.
+
 ## common
 
 * Common scripts used by other tools, don't run these directly.
