@@ -31,7 +31,7 @@ Beta | Pi 1 Model B | 256MB | ? | No | 2012 Q1 | Beta board
 0012 | Pi 1 Model A+ | 256MB | Yes | No | 2014 Q4 |
 0013 | Pi 1 Model B+ | 512MB | Yes | No | 2015 Q1 | Last Pi 1 Model B+?
 0014 | Compute Module | 512MB | ? | No | 2014 Q2 | See **note 1**
-0015 | Pi 1 Model A+ | 256MB / 512MB | ? | No | ? |
+0015 | Pi 1 Model A+ | Note 3 | ? | No | ? |
 a01040 | Pi 2 Model B | 1GB | Yes | No | ? | See **note 2**
 a01041 | Pi 2 Model B | 1GB | Yes | No | 2015 Q1 | See **note 2**
 a21041 | Pi 2 Model B | 1GB | Yes | No | 2015 Q1 | See **note 2**
@@ -42,9 +42,9 @@ a22042 | Pi 2 Model B (BCM2837) | 1GB | Yes | No | 2016 Q3 | See **note 2** - La
 a02082 | Pi 3 Model B | 1GB | ? | No | 2016 Q1 | Coming soon
 a22082 | Pi 3 Model B | 1GB | ? | No | 2016 Q1 | Coming soon
 
-Note 1: **I really need help testing this stuff on a compute module;** please perform extensive testing and let me know the results, or a donation of a compute module with breakout board would be **greatly appreciated** (and also be added to my build farm for freepascal compilation of other projects, such as my upcoming game library port for Raspberry Pi and associated games). In Japan, it is difficult to get hold of these without a credit card.
-
-Note 2: I have a Raspberry Pi Model 2 B, but I have not checked the board revision. I will update this table once I have.
+* Note 1: **I really need help testing this stuff on a compute module;** please perform extensive testing and let me know the results, or a donation of a compute module with breakout board would be **greatly appreciated** (and also be added to my build farm for freepascal compilation of other projects, such as my upcoming game library port for Raspberry Pi and associated games). In Japan, it is difficult to get hold of these without a credit card.
+* Note 2: I have a Raspberry Pi Model 2 B, but I have not checked the board revision. I will update this table once I have.
+* Note 3: Revision 0015 comes with either 256MB or 512MB of RAM installed.
 
 ## sd_to_usb_boot
 
