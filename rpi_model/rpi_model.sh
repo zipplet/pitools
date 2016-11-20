@@ -33,6 +33,7 @@ fi
 echo "Your Pi: ${CYAN}${PIBOARD}${NC}"
 echo " - Model: ${CYAN}${PIMODEL}${NC}"
 echo " - Sub model: ${CYAN}${PISUBMODEL}${NC}"
-echo " - RAM: ${CYAN}${PIRAM}${NC}"
+echo " - RAM: ${CYAN}${PIRAM}MB${NC}"
+echo " - Revision: ${CYAN}${PIBOARDREVISION}${NC}"
 
 exit 0
