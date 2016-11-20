@@ -36,9 +36,9 @@ a01040 | Pi 2 Model B | 1GB | Yes | No | ? | See **note 2**
 a01041 | Pi 2 Model B | 1GB | Yes | No | 2015 Q1 | See **note 2**
 a21041 | Pi 2 Model B | 1GB | Yes | No | 2015 Q1 | See **note 2**
 a22042 | Pi 2 Model B (BCM2837) | 1GB | Yes | No | 2016 Q3 | See **note 2** - Last Pi 2 Model B?
-900092 | Pi Zero | 512MB | ? | No | 2015 Q4 |
-900093 | Pi Zero | 512MB | ? | No | 2016 Q2 |
-920093 | Pi Zero | 512MB | ? | No | 2016 Q4? | Release date uncertain
+900092 | Pi Zero | 512MB | Yes | No | 2015 Q4 |
+900093 | Pi Zero | 512MB | Yes | **Yes** | 2016 Q2 | **Tested by me**
+920093 | Pi Zero | 512MB | Yes | No | 2016 Q4? | Release date uncertain
 a02082 | Pi 3 Model B | 1GB | ? | No | 2016 Q1 | Coming soon
 a22082 | Pi 3 Model B | 1GB | ? | No | 2016 Q1 | Coming soon
 
