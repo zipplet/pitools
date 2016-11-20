@@ -1,6 +1,8 @@
 #!/bin/sh
 # Make sure we are root.
 # Returns 1 if we are not (fail), 0 if we are (success).
+#
+# Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
 
 if [ "$(id -u)" != "0" ]; then

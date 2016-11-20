@@ -1,4 +1,9 @@
 #!/bin/sh
+# Constantly display some interesting system stats
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
+
 while :
 do
   TEMP=$(cat /sys/class/thermal/thermal_zone0/temp)

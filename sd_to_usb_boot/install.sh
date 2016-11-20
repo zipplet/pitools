@@ -1,5 +1,8 @@
 #!/bin/sh
-# sd_to_usb_boot - Copyright (c) Michael Nixon 2016.
+# sd_to_usb_boot - configure the Raspberry Pi to boot from USB media and move the current installation to USB media.
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
 
 if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."

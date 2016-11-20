@@ -1,4 +1,8 @@
 #!/bin/sh
+# Configure the hardware clock after the first reboot
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
 
 # Colours
 RED='\033[1;31m'

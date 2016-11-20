@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # Simple script for shutting down the raspberry Pi at the press of a button.  
 # by Inderpreet Singh  
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016, Inderpreet Singh.
   
 import RPi.GPIO as GPIO  
 import time  

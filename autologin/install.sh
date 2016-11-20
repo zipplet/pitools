@@ -1,4 +1,8 @@
 #!/bin/sh
+# Autologin installer
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
 
 if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."

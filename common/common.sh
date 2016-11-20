@@ -1,5 +1,7 @@
 #!/bin/sh
 # Common things used by all of pitools
+#
+# Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
 
 # Colours

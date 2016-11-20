@@ -1,4 +1,8 @@
 #!/bin/sh
+# Add a simple status script to the autologin user to run once the autologin user logs in automatically.
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
 
 if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."

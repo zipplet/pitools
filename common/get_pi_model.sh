@@ -1,5 +1,7 @@
 #!/bin/sh
 # Get the current Raspberry Pi model
+#
+# Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
 
 # Sets:

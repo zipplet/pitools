@@ -1,4 +1,16 @@
 #!/bin/sh
+# Report the Raspberry Pi model
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
+
+clear
+echo "${BLUE}---------------------------------${NC}"
+echo "${CYAN}rpi_model version 0.1 (20161120)${NC}"
+echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
+echo "${CYAN}Thanks to Adafruit for the idea.${NC}"
+echo "${BLUE}---------------------------------${NC}"
+
 
 if [ ! -f "../common/common.sh" ]; then
   echo "Please run this script from the script directory."
@@ -7,7 +19,10 @@ else
   . ../common/common.sh
 fi
 
+. $SCRIPT_GET_PI_MODEL
+
 # Report Pi model
+echo
 echo "${YELLOW}NOTE: I do not own any compute modules, so this may not be accurate for those.${NC}"
 echo
 if [ "$PIBOARD" = "" ]; then

@@ -1,6 +1,8 @@
 #!/bin/sh
 # Ask if the Raspberry Pi should be rebooted, and reboot it if so
 # Returns 1 if the user said no, 0 if they said yes and the machine is rebooting.
+#
+# Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
 
 echo "${GREEN}"

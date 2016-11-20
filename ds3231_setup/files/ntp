@@ -9,6 +9,11 @@
 # Short-Description: Start NTP daemon
 ### END INIT INFO
 
+# Modified ntp startup script
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
+
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
 . /lib/lsb/init-functions

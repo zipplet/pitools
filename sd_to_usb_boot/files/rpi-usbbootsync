@@ -1,5 +1,8 @@
 #!/bin/sh
 # This script syncs changes on demand from the virtual /boot on the USB media to the real boot on the SD card.
+#
+# Part of pitools - https://github.com/zipplet/pitools
+# Copyright (c) Michael Nixon 2016.
 
 RED='\033[1;31m'
 GREEN='\033[1;32m'
