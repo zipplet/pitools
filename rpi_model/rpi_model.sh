@@ -16,7 +16,6 @@ clear
 echo "${BLUE}---------------------------------${NC}"
 echo "${CYAN}rpi_model version 0.1 (20161120)${NC}"
 echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-echo "${CYAN}Thanks to Adafruit for the idea.${NC}"
 echo "${BLUE}---------------------------------${NC}"
 
 . $SCRIPT_GET_PI_MODEL
