@@ -23,23 +23,27 @@ if [ $INSTALLED -eq 1 ]; then
   exit 1
 fi
 
-clear
-echo "${BLUE}----------------------------------------${NC}"
-echo "${CYAN}usb_current_boost version 0.1 (20161016)${NC}"
-echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-echo "${BLUE}----------------------------------------${NC}"
+. $SCRIPT_IS_SILENT
 
-echo
-echo "${GREEN}Before proceeding, please confirm the following:${NC}"
-echo "${YELLOW}1) You have a high current power supply attached to your Raspberry Pi (at least capable of 2 amps, ideally 2.5 amps)${NC}"
-echo "${YELLOW}2) This tool only really works on Pi 1 B+ models or later.${NC}"
-echo
-echo
-read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
-echo
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
+if [ "$IS_SILENT" = "0" ]; then
+  clear
+  echo "${BLUE}----------------------------------------${NC}"
+  echo "${CYAN}usb_current_boost version 0.1 (20161016)${NC}"
+  echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
+  echo "${BLUE}----------------------------------------${NC}"
+
+  echo
+  echo "${GREEN}Before proceeding, please confirm the following:${NC}"
+  echo "${YELLOW}1) You have a high current power supply attached to your Raspberry Pi (at least capable of 2 amps, ideally 2.5 amps)${NC}"
+  echo "${YELLOW}2) This tool only really works on Pi 1 B+ models or later.${NC}"
+  echo
+  echo
+  read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
+  echo
+  if [ ! "$ANSWER" = "y" ]; then
+    echo "Aborting."
+    exit 1
+  fi
 fi
 
 echo "${GREEN}Enabling USB current boost mode...${NC}"
@@ -53,6 +57,7 @@ fi
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
 
-echo "${GREEN}All done. A reboot is required.${NC}"
-
-. $SCRIPT_WANT_REBOOT
+if [ "$IS_SILENT" = "0" ]; then
+  echo "${GREEN}All done. A reboot is required.${NC}"
+  . $SCRIPT_WANT_REBOOT
+fi

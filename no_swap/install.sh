@@ -23,22 +23,26 @@ if [ $INSTALLED -eq 1 ]; then
   exit 1
 fi
 
-clear
-echo "${BLUE}---------------------------------${NC}"
-echo "${CYAN}no_swap version 0.1 (20161016)${NC}"
-echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-echo "${BLUE}---------------------------------${NC}"
+. $SCRIPT_IS_SILENT
 
-echo
-echo "${GREEN}Before proceeding, please confirm the following:${NC}"
-echo "${YELLOW}1) Your Raspberry Pi has enough RAM (ideally it is a 1GB model and you do not run it in GUI mode).${NC}"
-echo
-echo
-read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
-echo
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
+if [ "$IS_SILENT" = "0" ]; then
+  clear
+  echo "${BLUE}---------------------------------${NC}"
+  echo "${CYAN}no_swap version 0.1 (20161016)${NC}"
+  echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
+  echo "${BLUE}---------------------------------${NC}"
+
+  echo
+  echo "${GREEN}Before proceeding, please confirm the following:${NC}"
+  echo "${YELLOW}1) Your Raspberry Pi has enough RAM (ideally it is a 1GB model and you do not run it in GUI mode).${NC}"
+  echo
+  echo
+  read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
+  echo
+  if [ ! "$ANSWER" = "y" ]; then
+    echo "Aborting."
+    exit 1
+  fi
 fi
 
 echo "${GREEN}Disabling swapfile service...${NC}"
@@ -51,6 +55,8 @@ rm /var/swap
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
 
-echo "${GREEN}All done.${NC}"
-echo
-free -m
+if [ "$IS_SILENT" = "0" ]; then
+  echo "${GREEN}All done.${NC}"
+  echo
+  free -m
+fi

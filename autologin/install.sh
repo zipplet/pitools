@@ -23,26 +23,29 @@ if [ $INSTALLED -eq 1 ]; then
   exit 1
 fi
 
-clear
-echo "${BLUE}---------------------------------${NC}"
-echo "${CYAN}autologin version 0.2 (20161015)${NC}"
-echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-echo "${BLUE}---------------------------------${NC}"
+. $SCRIPT_IS_SILENT
+if [ "$IS_SILENT" = "0" ]; then
+  clear
+  echo "${BLUE}---------------------------------${NC}"
+  echo "${CYAN}autologin version 0.2 (20161015)${NC}"
+  echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
+  echo "${BLUE}---------------------------------${NC}"
 
-echo
-echo "${RED}This script is designed for modern versions of Raspbian only that use systemd.${NC}"
-echo
-echo "${GREEN}Before proceeding, please confirm the following:${NC}"
-echo "${YELLOW}1) A new user account called ${CYAN}autologin${YELLOW} will be created.${NC}"
-echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup.${NC}"
-echo "${YELLOW}3) If the ${CYAN}autologin${YELLOW} account already exists, it will be used as-is.${NC}"
-echo "${YELLOW}4) The account will have the same group memberships as the Pi account but without sudo access.${NC}"
-echo
-read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
-echo
-if [ ! "$ANSWER" = "y" ]; then
-  echo "Aborting."
-  exit 1
+  echo
+  echo "${RED}This script is designed for modern versions of Raspbian only that use systemd.${NC}"
+  echo
+  echo "${GREEN}Before proceeding, please confirm the following:${NC}"
+  echo "${YELLOW}1) A new user account called ${CYAN}autologin${YELLOW} will be created.${NC}"
+  echo "${YELLOW}2) Your Raspberry Pi will automatically login to this account on startup.${NC}"
+  echo "${YELLOW}3) If the ${CYAN}autologin${YELLOW} account already exists, it will be used as-is.${NC}"
+  echo "${YELLOW}4) The account will have the same group memberships as the Pi account but without sudo access.${NC}"
+  echo
+  read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
+  echo
+  if [ ! "$ANSWER" = "y" ]; then
+    echo "Aborting."
+    exit 1
+  fi
 fi
 
 if [ ! -f "files/autologin@.service" ]; then
@@ -58,11 +61,20 @@ echo
 echo "If you want this account to start a program after logging in, edit the file"
 echo "${CYAN}~/.profile${NC} in the ${CYAN}/home/autologin${NC} directory after."
 echo
-echo "${CYAN}Creating the new account. You can use any password you want, but do not"
-echo "forget it incase you need it later.${NC}"
-echo
-adduser autologin
-echo
+
+if [ "$IS_SILENT" = "0" ]; then
+  echo "${CYAN}Creating the new account. You can use any password you want, but do not"
+  echo "forget it incase you need it later.${NC}"
+  echo
+  adduser autologin
+  echo
+else
+  echo "${CYAN}Creating the new account with the password ${GREEN}autologin${NC}"
+  echo
+  adduser --disabled-login --quiet autologin
+  echo -e "autologin\nautologin\n" | passwd autologin
+  echo
+fi
 
 if [ ! -d "/home/autologin" ]; then
   echo "${RED}Cannot find the home directory for the new user. Something went wrong.${NC}"
@@ -93,7 +105,8 @@ ln -s /etc/systemd/system/autologin@.service /etc/systemd/system/getty.target.wa
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
 
-echo "${GREEN}All done. Your Pi will auto-login with the ${CYAN}autologin${GREEN} account now.${NC}"
-echo "${YELLOW}To undo this, run ${CYAN}uninstall.sh${NC} ${YELLOW}at any time.${NC}"
-
-. $SCRIPT_WANT_REBOOT
+if [ "$IS_SILENT" = "0" ]; then
+  echo "${GREEN}All done. Your Pi will auto-login with the ${CYAN}autologin${GREEN} account now.${NC}"
+  echo "${YELLOW}To undo this, run ${CYAN}uninstall.sh${NC} ${YELLOW}at any time.${NC}"
+  . $SCRIPT_WANT_REBOOT
+fi
