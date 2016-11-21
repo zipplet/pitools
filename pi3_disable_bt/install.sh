@@ -66,7 +66,7 @@ if [ -f "/pitools/sd_to_usb_boot" ]; then
   rpi-usbbootsync
 fi
 
-echo "${GREEN}Disabling systemd bluetooth service...{$NC}"
+echo "${GREEN}Disabling systemd bluetooth service...${NC}"
 systemctl disable hciuart
 systemctl stop hciuart
 
