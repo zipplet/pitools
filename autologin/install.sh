@@ -24,6 +24,7 @@ if [ $INSTALLED -eq 1 ]; then
 fi
 
 . $SCRIPT_IS_SILENT
+
 if [ "$IS_SILENT" = "0" ]; then
   clear
   echo "${BLUE}---------------------------------${NC}"
