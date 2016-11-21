@@ -23,6 +23,18 @@ if [ $INSTALLED -eq 1 ]; then
   exit 1
 fi
 
+# We only support Raspberry Pi 3 Model B
+. $SCRIPT_GET_PI_MODEL
+if [ "$PIMODEL" != "3" ]; then
+  echo "${RED}This tool only works on the Raspberry Pi 3 Model B.${NC}"
+  exit 1
+else
+  if [ "$PISUBMODEL" != "B" ]; then
+    echo "${RED}This tool only works on the Raspberry Pi 3 Model B.${NC}"
+    exit 1
+  fi
+fi
+
 . $SCRIPT_IS_SILENT
 
 if [ "$IS_SILENT" = "0" ]; then
