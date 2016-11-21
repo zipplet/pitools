@@ -49,3 +49,4 @@ ln -s /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/
 echo "${GREEN}All done. Your Pi will no longer auto login at boot.${NC}"
 
 . $SCRIPT_WANT_REBOOT
+
