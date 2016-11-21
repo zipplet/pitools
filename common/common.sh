@@ -48,6 +48,11 @@ if [ ! -f '../common/get_pi_model.sh' ]; then
   exit 1
 fi
 
+if [ ! -f '../common/is_silent.sh' ]; then
+  echo "Error: Common script missing - is_silent.sh"
+  exit 1
+fi
+
 # Set variable names for all common scripts
 SCRIPT_CHECK_ROOT="../common/check_root.sh"
 SCRIPT_CHECK_IF_INSTALLED="../common/check_if_installed.sh"
@@ -55,3 +60,4 @@ SCRIPT_MARK_AS_INSTALLED="../common/mark_as_installed.sh"
 SCRIPT_MARK_AS_UNINSTALLED="../common/mark_as_uninstalled.sh"
 SCRIPT_WANT_REBOOT="../common/want_reboot.sh"
 SCRIPT_GET_PI_MODEL="../common/get_pi_model.sh"
+SCRIPT_IS_SILENT="../common/is_silent.sh"
