@@ -96,4 +96,4 @@ Note: **I really need help testing this stuff on a compute module;** please perf
 * Disallow tools like pi3_disable_bt from being installed if the config.txt file has already been manually modified
 * Make all tools support --quiet
 * Add a "recommended provisioning" tool
-
+* For usb_current_boost, disallow Pi 3.
