@@ -5,10 +5,9 @@
 # Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
 
+IS_SILENT="0"
 if [ ! -z "$1" ]; then
   if [ "$1" = "--quiet" ]; then
     IS_SILENT="1"
-  else
-    IS_SILENT="0"
   fi
 fi
