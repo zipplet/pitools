@@ -72,7 +72,8 @@ if [ "$IS_SILENT" = "0" ]; then
 else
   echo "${CYAN}Creating the new account with the password ${GREEN}autologin${NC}"
   echo
-  adduser --disabled-login --quiet autologin
+  echo -e "\n\n\n\n\n\n" | adduser --disabled-login --quiet autologin
+  echo
   echo -e "autologin\nautologin\n" | passwd autologin
   echo
 fi
