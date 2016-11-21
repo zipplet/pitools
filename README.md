@@ -82,6 +82,10 @@ Note: **I really need help testing this stuff on a compute module;** please perf
 * This also means GPIO 14 and 15 can be used as a real hardware serial port again (UART0 / ttyAMA0)
 * The bluetooth service is also disabled.
 
+## pi3_disable_wifi
+
+* Disables the Wi-fi controller on the Raspberry Pi 3
+
 ## common
 
 * Common scripts used by other tools, don't run these directly.

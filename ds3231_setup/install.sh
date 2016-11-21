@@ -72,8 +72,10 @@ mv /etc/init.d/ntp /etc/init.d/ntp.backup
 cp files/ntp /etc/init.d/ntp
 
 echo "${GREEN}Adding driver overlay...${NC}"
-echo "# RTC support" >> /boot/config.txt
+
+echo "# BEGIN ds3231_setup" >> /boot/config.txt
 echo "dtoverlay=i2c-rtc,ds3231" >> /boot/config.txt
+echo "# END ds3231_setup" >> /boot/config.txt
 
 if [ -f "/pitools/sd_to_usb_boot" ]; then
   rpi-usbbootsync

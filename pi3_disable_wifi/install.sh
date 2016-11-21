@@ -1,5 +1,5 @@
 #!/bin/sh
-# Disable Bluetooth modem restoring GPIO 14 and 15 as UART0
+# Disable the wifi controller
 #
 # Part of pitools - https://github.com/zipplet/pitools
 # Copyright (c) Michael Nixon 2016.
@@ -11,7 +11,7 @@ else
   . ../common/common.sh
 fi
 
-INSTALLMARK="pi3_disable_bt"
+INSTALLMARK="pi3_disable_wifi"
 INSTALLMARKFILE="${INSTALLMARKDIR}/${INSTALLMARK}"
 
 # We must run as root
@@ -39,15 +39,14 @@ fi
 
 if [ "$IS_SILENT" = "0" ]; then
   clear
-  echo "${BLUE}-------------------------------------${NC}"
-  echo "${CYAN}pi3_disable_bt version 0.1 (20161121)${NC}"
+  echo "${BLUE}---------------------------------------${NC}"
+  echo "${CYAN}pi3_disable_wifi version 0.1 (20161121)${NC}"
   echo "${CYAN}Copyright (c) Michael Nixon 2016.${NC}"
-  echo "${BLUE}-------------------------------------${NC}"
+  echo "${BLUE}---------------------------------------${NC}"
 
   echo
   echo "${GREEN}Before proceeding, please confirm the following:${NC}"
-  echo "${YELLOW}1) You do not currently use the bluetooth adaptor.${NC}"
-  echo "${YELLOW}2) GPIO pins 14 and 15 will be UART0 / ttyAMA0 like on older Pi models again.${NC}"
+  echo "${YELLOW}1) You do not currently use the wifi adaptor.${NC}"
   echo
   echo
   read -p "Have you read, confirmed and do you understand all of the above? (y/n) :" -r ANSWER
@@ -58,19 +57,11 @@ if [ "$IS_SILENT" = "0" ]; then
   fi
 fi
 
-echo "${GREEN}Disabling bluetooth adaptor...${NC}"
-
-echo "# BEGIN pi3_disable_bt" >> /boot/config.txt
-echo "dtoverlay=pi3-disable-bt" >> /boot/config.txt
-echo "# END pi3_disable_bt" >> /boot/config.txt
-
-if [ -f "/pitools/sd_to_usb_boot" ]; then
-  rpi-usbbootsync
-fi
-
-echo "${GREEN}Disabling systemd bluetooth service...${NC}"
-systemctl disable hciuart
-systemctl stop hciuart
+echo "${GREEN}Disabling wifi adaptor...${NC}"
+echo "# BEGIN pi3_disable_wifi" >> /etc/modprobe.d/raspi-blacklist.conf
+echo "blacklist brcmfmac" >> /etc/modprobe.d/raspi-blacklist.conf
+echo "blacklist brcmutil" >> /etc/modprobe.d/raspi-blacklist.conf
+echo "# END pi3_disable_wifi" >> /etc/modprobe.d/raspi-blacklist.conf
 
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
