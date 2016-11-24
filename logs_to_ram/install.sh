@@ -63,9 +63,10 @@ echo "tmpfs /var/log tmpfs defaults,noatime,nosuid,mode=0755,size=30m 0 0" >> /e
 echo "${GREEN}Disabling ntp (just incase)...${NC}"
 systemctl stop ntp
 
-echo "${GREEN}Removing current /tmp and /var/log contents...${NC}"
-rm -f /tmp/* 2>&1 > /dev/null
-rm -f /var/log/* 2>&1 /dev/null
+echo "${GREEN}Removing old /tmp and /var/log contents...${NC}"
+# Might crash the Pi
+#rm -f /tmp/* 2>&1 > /dev/null
+rm -f /var/log/*.gz 2>&1 /dev/null
 
 echo "${GREEN}Installing logkiller script...${NC}"
 cp logkiller /etc/cron.hourly/
