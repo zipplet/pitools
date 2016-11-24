@@ -64,6 +64,18 @@ server ntp2.jst.mfeed.ad.jp iburst
 server ntp3.jst.mfeed.ad.jp iburst
 ```
 
-I recommend keeping iburst, and using at least 3 servers. If you have multiple Pi's, put a DS3231 on a single Pi (call it your Master) and connect it to your network via Ethernet. Pick some good NTP servers, maybe even as many as 5. Then configure all of your other Pi's to sync to that Pi - rather than straining the limited capacity of NTP servers available on the Internet.
+I recommend keeping iburst, and using at least 3 servers. If you have multiple Pi's, put a DS3231 on a single Pi (call it your **master**) and connect it to your network via ethernet **not wi-fi**. Give it a static IP address. Pick some good NTP servers; maybe even as many as 5. Then configure all of your other Pi's to sync to the **master** - rather than straining the limited capacity of NTP servers available on the Internet.
 
-This also means you do not need to fit a DS3231 or similar to every Pi - even if your Internet is down, they can synchronise with your master Pi that has a hardware RTC and will maintain (reasonable) time even if power cycled.
+Ideally if you have that many Pi's, you will also want a **slave** Pi with a DS3231 or similar and a good set of NTP servers - ideally different to the set on the **master** Pi. You also connect that one via ethernet and give it a static IP. Then your other Pi's can synchronise with both the **master** and **slave** at the same time, as an example I do something like this on those machines:
+
+```
+server 192.168.100.100 iburst
+server 192.168.100.110 iburst
+```
+
+This gives machines 2 time sources to use, which is a good minimum in the event you lose Internet access to the **master** and **slave** Pi's meaning they rely entirely on local timekeeping.
+
+Bonuses:
+* This also means you do not need to fit a DS3231 or similar to every Pi - even if your Internet is down they can synchronise with your **master** (and maybe **slave** if you have one) Pi that has a hardware RTC and will maintain (reasonable) time even if power cycled or rebooted
+* Other computers on your network (Windows included) can be told to synchronise to your **master** or **slave**
+* You are reducing burden on the NTP infrastructure by only having 2 timekeepers that utilise public servers, and synchronising every other machine to those. This is a Good Thing if you have lots of computers or just like the idea of highly accurate time!
