@@ -86,6 +86,11 @@ Note: **I really need help testing this stuff on a compute module;** please perf
 
 * Disables the Wi-fi controller on the Raspberry Pi 3
 
+## logs_to_ram
+
+* Moves /tmp and /var/log to a small RAM disk
+* /var/log will have all archived *.gz files flushed hourly
+
 ## common
 
 * Common scripts used by other tools, don't run these directly.
@@ -97,3 +102,4 @@ Note: **I really need help testing this stuff on a compute module;** please perf
 * Make all tools support --quiet
 * Add a "recommended provisioning" tool
 * For usb_current_boost, disallow Pi 3.
+* For logs_to_ram, expire old /tmp files
