@@ -47,7 +47,7 @@ One server should be marked with an asterisk, in my case the first one. That mea
 
 ## Tips
 
-Now that you have a real RTC, once you have confirmed it is working (you have set the initial time using **sudo rtc-fixclock** and rebooted) you should edit **/etc/ntp.conf** and replace the list of NTP servers with ones closer to your location, and remove **iburst** as you now have a real hardware clock. For example, for me:
+Now that you have a real RTC, once you have confirmed it is working (you have set the initial time using **sudo rtc-fixclock** and rebooted) you should edit **/etc/ntp.conf** and replace the list of NTP servers with ones closer to your location. For example:
 
 **Before:**
 ```
@@ -57,7 +57,7 @@ server 2.debian.pool.ntp.org iburst
 server 3.debian.pool.ntp.org iburst
 ```
 
-**After:** (I am in Japan, so I handpicked these)
+**After:** (I am in Japan, so I used these - but you could use the NTP pool project)
 ```
 server ntp1.jst.mfeed.ad.jp
 server ntp2.jst.mfeed.ad.jp
