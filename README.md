@@ -102,4 +102,4 @@ Note: **I really need help testing this stuff on a compute module;** please perf
 * Make all tools support --quiet
 * Add a "recommended provisioning" tool
 * For usb_current_boost, disallow Pi 3.
-* For logs_to_ram, expire old /tmp files
+* For logs_to_ram, expire old /tmp files and refuse installation on models with 256MB of RAM, and throw an extra warning up for models with 512MB of RAM
