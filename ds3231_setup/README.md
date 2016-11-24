@@ -59,7 +59,11 @@ server 3.debian.pool.ntp.org iburst
 
 **After:** (I am in Japan, so I used these - but you could use the NTP pool project)
 ```
-server ntp1.jst.mfeed.ad.jp
-server ntp2.jst.mfeed.ad.jp
-server ntp3.jst.mfeed.ad.jp
+server ntp1.jst.mfeed.ad.jp iburst
+server ntp2.jst.mfeed.ad.jp iburst
+server ntp3.jst.mfeed.ad.jp iburst
 ```
+
+I recommend keeping iburst, and using at least 3 servers. If you have multiple Pi's, put a DS3231 on a single Pi (call it your Master) and connect it to your network via Ethernet. Pick some good NTP servers, maybe even as many as 5. Then configure all of your other Pi's to sync to that Pi - rather than straining the limited capacity of NTP servers available on the Internet.
+
+This also means you do not need to fit a DS3231 or similar to every Pi - even if your Internet is down, they can synchronise with your master Pi that has a hardware RTC and will maintain (reasonable) time even if power cycled.
