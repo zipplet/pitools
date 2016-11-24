@@ -56,6 +56,11 @@ if [ "$IS_SILENT" = "0" ]; then
   fi
 fi
 
+if [ ! -f "files/logkiller" ]; then
+  echo "${RED}Cannot find files/logkiller - Run this script from its own directory!${NC}"
+  exit 1
+fi
+
 echo "${GREEN}Adding the RAM filesystem to /etc/fstab...${NC}"
 echo "tmpfs /tmp tmpfs defaults,noatime,nosuid,size=30m 0 0" >> /etc/fstab
 echo "tmpfs /var/log tmpfs defaults,noatime,nosuid,mode=0755,size=30m 0 0" >> /etc/fstab
@@ -69,7 +74,7 @@ echo "${GREEN}Removing old /tmp and /var/log contents...${NC}"
 rm -f /var/log/*.gz 2>&1 /dev/null
 
 echo "${GREEN}Installing logkiller script...${NC}"
-cp logkiller /etc/cron.hourly/
+cp files/logkiller /etc/cron.hourly/
 
 echo "${GREEN}Marking this tool as installed...${NC}"
 . $SCRIPT_MARK_AS_INSTALLED
