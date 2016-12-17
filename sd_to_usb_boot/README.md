@@ -89,7 +89,7 @@ It should never be executed manually.
 This script synchronises any changes made to the virtual /boot partition on the USB media back to the SD card on demand.
 
 * Run it as root - **sudo rpi-usbbootsync**
-* Use it if you make changes to a file like config.txt and want to see the changes immediately on the next reboot, before the automatic sync script kicks in.
+* Use it if you make changes to a file like config.txt, use apt-get to update your Pi or have used raspi-config to change settings. **If you do not, they will be wiped when you reboot**. This behaviour is by design to allow you to recover from mistakes (how? insert the SD card into another computer and edit files as necessary, then put it back into the Pi - your changes will then override the ones on the virtual /boot partition and be copied to it)
 
 **Note that all of my tools in the pitools repo automatically run rpi-usbbootsync if they make changes to the /boot virtual partition, if sd_to_usb_boot is installed.**
 
