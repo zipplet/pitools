@@ -6,7 +6,9 @@ Inspired by: https://learn.adafruit.com/external-drive-as-raspberry-pi-root/
 
 **Stable; ready for use.**
 
-**WARNING:** Plugging in USB devices like network adaptors while you are booting from a USB device may cause the USB storage device to malfunction (you will see lots of kernel error messages and your Pi will stop working properly until rebooted), possibly due to a kernel bug. I recommend having all USB devices you plan to use plugged in before powering up the Pi if you boot from USB. USB network adaptors in particular exhibit this issue. I confirmed that if you plug in the network adaptors (I tested an ethernet and wi-fi one) before connecting power, it works fine - proof:
+**BIG WARNING:** After updating your Raspberry Pi (apt-get), you need to run **rpi-usbbootsync** or the new kernel files/etc are not copied from the virtual /boot to the real SD card /boot partition. This could cause strange things to happen - at best you will be running an old kernel forever; at worst your Pi will become unbootable. I will fix this at some point.
+
+**SMALLER WARNING:** Plugging in USB devices like network adaptors while you are booting from a USB device may cause the USB storage device to malfunction (you will see lots of kernel error messages and your Pi will stop working properly until rebooted), possibly due to a kernel bug. I recommend having all USB devices you plan to use plugged in before powering up the Pi if you boot from USB. USB network adaptors in particular exhibit this issue. I confirmed that if you plug in the network adaptors (I tested an ethernet and wi-fi one) before connecting power, it works fine - proof:
 
 ```
 root@testpi:/home/pi# ifconfig
