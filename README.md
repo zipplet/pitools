@@ -53,7 +53,7 @@ Note: **I really need help testing this stuff on a compute module;** please perf
 ## gpio_soft_poweroff
 
 * Initiates a controlled shutdown of your Raspberry Pi if GPIO pin 21 is connected to ground via a button.
-* On a modern Pi with a 40 pin GPIO connector, connect a button between pins 39 and 40. No resistor is necessary.
+* On a modern Pi with a 40 pin GPIO connector, connect a button and 10K resistor between pins 39 and 40.
 * Logs shutdowns to /var/log/manual_shutdown.log
 * **Make sure you connect the button between the correct GPIO pins!**
 * Based on https://www.element14.com/community/docs/DOC-78055/l/adding-a-shutdown-button-to-the-raspberry-pi-b
